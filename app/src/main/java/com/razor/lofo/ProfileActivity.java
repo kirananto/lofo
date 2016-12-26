@@ -65,7 +65,6 @@ public class ProfileActivity extends BaseActivity implements
         GoogleApiClient.OnConnectionFailedListener {
     private static final String TAG = "ProfileActivity";
     private ViewGroup mProfileUi;
-    private ViewGroup mSignInUi;
     private FirebaseAuth mAuth;
     private CircleImageView mProfilePhoto;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -85,20 +84,11 @@ public class ProfileActivity extends BaseActivity implements
         mAuth = FirebaseAuth.getInstance();
 
         // GoogleApiClient with Sign In
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API,
-                        new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                                .requestEmail()
-                                .requestIdToken(getString(R.string.default_web_client_id))
-                                .build()).build();
 
-        mSignInUi = (ViewGroup) findViewById(R.id.sign_in_ui);
         mProfileUi = (ViewGroup) findViewById(R.id.profile);
 
         mProfilePhoto = (CircleImageView) findViewById(R.id.profile_user_photo);
         mProfileUsername = (TextView) findViewById(R.id.profile_user_name);
-        findViewById(R.id.launch_sign_in).setOnClickListener(this);
         findViewById(R.id.show_feeds_button).setOnClickListener(this);
         findViewById(R.id.sign_out_button).setOnClickListener(this);
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -143,60 +133,8 @@ public class ProfileActivity extends BaseActivity implements
         }
     }
 
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if (result.isSuccess()) {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = result.getSignInAccount();
-                firebaseAuthWithGoogle(account);
-            } else {
-                // Google Sign In failed, update UI appropriately
-                Log.d(TAG, "Google Sign-In failedDD.");
-            }
-        }
-    }
-
-
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGooogle:" + acct.getId());
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        showProgressDialog(getString(R.string.profile_progress_message));
-        mAuth.signInWithCredential(credential)
-                .addOnSuccessListener(this, new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult result) {
-                        handleFirebaseAuthResult(result);
-                    }
-                })
-                .addOnFailureListener(this, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        FirebaseCrash.logcat(Log.ERROR, TAG, "auth:onFailure:" + e.getMessage());
-                        handleFirebaseAuthResult(null);
-                    }
-                });
-    }
-
-    private void handleFirebaseAuthResult(AuthResult result) {
-        // TODO: This auth callback isn't being called after orientation change. Investigate.
-        dismissProgressDialog();
-        if (result != null) {
-            Log.d(TAG, "handleFirebaseAuthResult:SUCCESS");
-            showSignedInUI(result.getUser());
-        } else {
-            Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-            showSignedOutUI();
-        }
-    }
-    private void showSignedInUI(FirebaseUser firebaseUser) {
+    public void showSignedInUI(FirebaseUser firebaseUser) {
         Log.d(TAG, "Showing signed in UI");
-        mSignInUi.setVisibility(View.GONE);
         mProfileUi.setVisibility(View.VISIBLE);
         mProfileUsername.setVisibility(View.VISIBLE);
         mProfilePhoto.setVisibility(View.VISIBLE);
@@ -225,10 +163,9 @@ public class ProfileActivity extends BaseActivity implements
                 });
     }
 
-    private void showSignedOutUI() {
+     public void showSignedOutUI() {
         Log.d(TAG, "Showing signed out UI");
         mProfileUsername.setText("");
-        mSignInUi.setVisibility(View.VISIBLE);
         mProfileUi.setVisibility(View.GONE);
     }
 

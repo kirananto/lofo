@@ -33,16 +33,21 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.crash.FirebaseCrash;
 
-public class WelcomeActivity extends AppCompatActivity implements
+public class WelcomeActivity extends ProfileActivity implements
         View.OnClickListener,
         GoogleApiClient.OnConnectionFailedListener{
 
@@ -54,15 +59,17 @@ public class WelcomeActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
+        setContentView(R.layout.activity_welcome);
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API,
                         new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                                 .requestEmail()
                                 .requestIdToken(getString(R.string.default_web_client_id))
-                                .build()).build();
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        setContentView(R.layout.activity_welcome);
+                                .build()
+                        ).build();
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions("email");
@@ -115,5 +122,61 @@ public class WelcomeActivity extends AppCompatActivity implements
         Log.w(TAG, "onConnectionFailed:" + connectionResult);
     }
 
-    
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mGoogleApiClient.stopAutoManage(this);
+        mGoogleApiClient.disconnect();
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if (result.isSuccess()) {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = result.getSignInAccount();
+                firebaseAuthWithGoogle(account);
+            } else {
+                // Google Sign In failed, update UI appropriately
+                Log.d(TAG, "Google Sign-In failedDD.");
+            }
+        }
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        Log.d(TAG, "firebaseAuthWithGooogle:" + acct.getId());
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        showProgressDialog(getString(R.string.profile_progress_message));
+        mAuth.signInWithCredential(credential)
+                .addOnSuccessListener(this, new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult result) {
+                        handleFirebaseAuthResult(result);
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        FirebaseCrash.logcat(Log.ERROR, TAG, "auth:onFailure:" + e.getMessage());
+                        handleFirebaseAuthResult(null);
+                    }
+                });
+    }
+
+    private void handleFirebaseAuthResult(AuthResult result) {
+        // TODO: This auth callback isn't being called after orientation change. Investigate.
+        dismissProgressDialog();
+        if (result != null) {
+            Log.d(TAG, "handleFirebaseAuthResult:SUCCESS");
+            showSignedInUI(result.getUser());
+        } else {
+            Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+            setContentView(R.layout.activity_profile);
+            showSignedOutUI();
+        }
+    }
+
 }
