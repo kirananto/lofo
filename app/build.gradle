@@ -29,7 +29,8 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -68,6 +69,7 @@ dependencies {
     compile 'org.apache.httpcomponents:httpcore:4.3.1'
     compile 'org.apache.httpcomponents:httpmime:4.3.1'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
+    compile 'com.facebook.android:facebook-android-sdk:4.16.0'
 }
 
 

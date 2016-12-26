@@ -25,20 +25,48 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 
-public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class WelcomeActivity extends AppCompatActivity implements
+        View.OnClickListener,
+        GoogleApiClient.OnConnectionFailedListener{
 
     private static final String TAG = "WelcomeActivity";
     private FirebaseAuth mAuth;
+    private GoogleApiClient mGoogleApiClient;
+    private LoginButton loginButton;
+    private static final int RC_SIGN_IN = 103;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API,
+                        new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                                .requestEmail()
+                                .requestIdToken(getString(R.string.default_web_client_id))
+                                .build()).build();
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_welcome);
+
+        loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.setReadPermissions("email");
+        // If using in a fragment
 
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         findViewById(R.id.explore_button).setOnClickListener(this);
@@ -70,9 +98,22 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 });
                 break;
             case R.id.sign_in_button:
-                Intent signInIntent = new Intent(this, ProfileActivity.class);
-                startActivity(signInIntent);
+                launchSignInIntent();
                 break;
         }
     }
+
+    private void launchSignInIntent() {
+        Intent intent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        Log.d(TAG, "YOO  GONNA START ACTIVITY.");
+        startActivityForResult(intent, RC_SIGN_IN);
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.w(TAG, "onConnectionFailed:" + connectionResult);
+    }
+
+    
 }

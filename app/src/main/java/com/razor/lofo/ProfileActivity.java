@@ -131,9 +131,6 @@ public class ProfileActivity extends BaseActivity implements
     public void onClick(View v) {
         int id = v.getId();
         switch(id) {
-            case R.id.launch_sign_in:
-                launchSignInIntent();
-                break;
             case R.id.sign_out_button:
                 mAuth.signOut();
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient);
@@ -146,12 +143,6 @@ public class ProfileActivity extends BaseActivity implements
         }
     }
 
-    private void launchSignInIntent() {
-        Intent intent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        Log.d(TAG, "YOO  GONNA START ACTIVITY.");
-        startActivityForResult(intent, RC_SIGN_IN);
-        mGoogleApiClient.connect();
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

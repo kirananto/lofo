@@ -25,7 +25,7 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_login">Sign in</string>
-
+    <string name="facebook_app_id">1759544837616905</string>
     <!-- Content Description for images -->
     <string name="desc_google_icon">Google Logo</string>
     <string name="server_client_id_web">1014292022054-m1gmvf0mgfp5ovc4gamqunneuembmn1p.apps.googleusercontent.com</string>
@@ -34,7 +34,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="motto"> The Easiest way to find your stuffs </string>
-    <string name="explore_button_text">explore</string>
+    <string name="skip">skip sign in</string>
     <string name="sign_in_button_text">sign in</string>
     <string name="sign_out_button_text">sign out</string>
     <string name="show_feed_button_text">show feed</string>
