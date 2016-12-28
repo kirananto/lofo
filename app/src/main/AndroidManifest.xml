@@ -75,15 +75,15 @@
         <activity
             android:name=".CommentsActivity"
             android:label="@string/title_activity_comments"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.Welcome" />
         <activity
             android:name=".NewPostActivity"
             android:label="@string/title_activity_new_post"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.Welcome" />
         <activity
             android:name=".UserDetailActivity"
             android:label="@string/title_activity_user_detail"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.Welcome" />
         <activity android:name=".BaseActivity"></activity>
     </application>
 

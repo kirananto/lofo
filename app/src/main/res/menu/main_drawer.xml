@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_notif"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/nav_mail"
+        android:title=" Send Mail"/>
+
+    <item android:title="Donate"/>
+
+    <item android:title="Categories"
+        android:icon="@android:drawable/ic_search_category_default">
+        <menu>
+            <item
+                android:id="@+id/nav_general"
+                android:title="General" />
+            <item
+                android:id="@+id/nav_children"
+                android:title="People" />
+
+            <item
+                android:id="@+id/nav_vehicles"
+                android:title="Vehicles" />
+            <item
+                android:id="@+id/nav_mobile"
+                android:title="Mobile Phones" />
+
+            <item
+                android:id="@+id/nav_Electronics"
+                android:title="Electronics" />
+        </menu>
+    </item>
+
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@android:drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@android:drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
+    <item android:title="Sign Out"/>
+
+</menu>

@@ -45,7 +45,7 @@
             android:layout_toRightOf="@id/post_author_icon"
             android:layout_marginLeft="4dp"
             style="@style/Base.TextAppearance.AppCompat.Title"
-            android:textColor="@android:color/primary_text_light_nodisable"
+            android:textColor="@color/cardview_light_background"
             android:text="Unknown"/>
         <TextView
             android:id="@+id/post_timestamp"
@@ -74,34 +74,20 @@
             android:layout_marginRight="6dp"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="6dp"
-            android:textColor="@android:color/primary_text_light"
+            android:textColor="@color/cardview_light_background"
             android:textSize="16sp"
             android:ellipsize="end" />
-        <TextView
-            android:id="@+id/post_num_likes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
-            android:textColor="@android:color/secondary_text_light"
-            android:textSize="14sp" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="6dp">
-            <ImageView
-                android:id="@+id/post_like_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/heart_full"/>
+
             <ImageView
                 android:id="@+id/post_comment_icon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="6dp"
-                android:layout_toRightOf="@id/post_like_icon"
                 android:src="@drawable/ic_chat_24dp"
                 android:tint="@color/blue_grey_500"/>
         </RelativeLayout>

@@ -49,8 +49,8 @@ public class PostsFragment extends Fragment {
     public static final String TAG = "PostsFragment";
     private static final String KEY_LAYOUT_POSITION = "layoutPosition";
     private static final String KEY_TYPE = "type";
-    public static final int TYPE_HOME = 1001;
-    public static final int TYPE_FEED = 1002;
+    public static final int TYPE_MISSING = 1001;
+    public static final int TYPE_FOUND = 1002;
     private int mRecyclerViewPosition = 0;
     private OnPostSelectedListener mListener;
 
@@ -102,10 +102,10 @@ public class PostsFragment extends Fragment {
         }
 
         switch (getArguments().getInt(KEY_TYPE)) {
-            case TYPE_FEED:
+            case TYPE_FOUND:
                 Log.d(TAG, "Restoring recycler view position (all): " + mRecyclerViewPosition);
-                Query allPostsQuery = FirebaseUtil.getPostsRef();
-                mAdapter = getFirebaseRecyclerAdapter(allPostsQuery);
+                Query foundPostQuery = FirebaseUtil.getPostsRef();
+                mAdapter = getFirebaseRecyclerAdapter(foundPostQuery);
                 mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
                     @Override
                     public void onItemRangeInserted(int positionStart, int itemCount) {
@@ -114,101 +114,17 @@ public class PostsFragment extends Fragment {
                     }
                 });
                 break;
-            case TYPE_HOME:
-                Log.d(TAG, "Restoring recycler view position (following): " + mRecyclerViewPosition);
-
-                FirebaseUtil.getCurrentUserRef().child("following").addChildEventListener(new ChildEventListener() {
+            case TYPE_MISSING:
+                Log.d(TAG, "Restoring recycler view position (all): " + mRecyclerViewPosition);
+                Query missingPostQuery = FirebaseUtil.getPostsRef();
+                mAdapter = getFirebaseRecyclerAdapter(missingPostQuery);
+                mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
                     @Override
-                    public void onChildAdded(final DataSnapshot followedUserSnapshot, String s) {
-                        String followedUserId = followedUserSnapshot.getKey();
-                        String lastKey = "";
-                        if (followedUserSnapshot.getValue() instanceof String) {
-                            lastKey = followedUserSnapshot.getValue().toString();
-                        }
-                        Log.d(TAG, "followed user id: " + followedUserId);
-                        Log.d(TAG, "last key: " + lastKey);
-                        FirebaseUtil.getPeopleRef().child(followedUserId).child("posts")
-                                .orderByKey().startAt(lastKey).addChildEventListener(new ChildEventListener() {
-                            @Override
-                            public void onChildAdded(final DataSnapshot postSnapshot, String s) {
-                                HashMap<String, Object> addedPost = new HashMap<String, Object>();
-                                addedPost.put(postSnapshot.getKey(), true);
-                                FirebaseUtil.getFeedRef().child(FirebaseUtil.getCurrentUserId())
-                                        .updateChildren(addedPost).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        FirebaseUtil.getCurrentUserRef().child("following")
-                                                .child(followedUserSnapshot.getKey())
-                                                .setValue(postSnapshot.getKey());
-                                    }
-                                });
-                            }
-
-                            @Override
-                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                            }
-
-                            @Override
-                            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                            }
-
-                            @Override
-                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
+                    public void onItemRangeInserted(int positionStart, int itemCount) {
+                        super.onItemRangeInserted(positionStart, itemCount);
+                        // TODO: Refresh feed view.
                     }
                 });
-
-                FirebaseUtil.getFeedRef().child(FirebaseUtil.getCurrentUserId())
-                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                final List<String> postPaths = new ArrayList<>();
-                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                    Log.d(TAG, "adding post key: " + snapshot.getKey());
-                                    postPaths.add(snapshot.getKey());
-                                }
-                                mAdapter = new FirebasePostQueryAdapter(postPaths,
-                                        new FirebasePostQueryAdapter.OnSetupViewListener() {
-                                    @Override
-                                    public void onSetupView(PostViewHolder holder, Post post, int position, String postKey) {
-                                        setupPost(holder, post, position, postKey);
-                                    }
-                                });
-                            }
-                            @Override
-                            public void onCancelled(DatabaseError firebaseError) {
-
-                            }
-                        });
                 break;
             default:
                 throw new RuntimeException("Illegal post fragment type specified.");
@@ -249,7 +165,7 @@ public class PostsFragment extends Fragment {
         postViewHolder.setAuthor(author.getFull_name(), author.getUid());
         postViewHolder.setIcon(author.getProfile_picture(), author.getUid());
 
-        ValueEventListener likeListener = new ValueEventListener() {
+       /* ValueEventListener likeListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 postViewHolder.setNumLikes(dataSnapshot.getChildrenCount());
@@ -266,7 +182,7 @@ public class PostsFragment extends Fragment {
             }
         };
         FirebaseUtil.getLikesRef().child(postKey).addValueEventListener(likeListener);
-        postViewHolder.mLikeListener = likeListener;
+        postViewHolder.mLikeListener = likeListener;*/
 
         postViewHolder.setPostClickListener(new PostViewHolder.PostClickListener() {
             @Override

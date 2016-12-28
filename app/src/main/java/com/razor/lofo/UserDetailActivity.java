@@ -176,9 +176,10 @@ public class UserDetailActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Post post = dataSnapshot.getValue(Post.class);
-
                         ImageView imageView = (ImageView) findViewById(R.id.backdrop);
-                        GlideUtil.loadImage(post.getFull_url(), imageView);
+                        //TODO replace this temporary if condition
+                        if(post!=null)
+                            GlideUtil.loadImage(post.getFull_url(), imageView);
                     }
 
                     @Override
@@ -247,6 +248,7 @@ public class UserDetailActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Post post = dataSnapshot.getValue(Post.class);
+                    if(post!=null){
                     GlideUtil.loadImage(post.getFull_url(), holder.imageView);
                     holder.imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -256,7 +258,7 @@ public class UserDetailActivity extends AppCompatActivity {
                                     .getAdapterPosition(),
                                     Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    });}
                 }
 
                 @Override

@@ -22,7 +22,8 @@
         android:id="@+id/action_profile"
         android:title="Profile"
         app:showAsAction="always"
-        android:icon="@drawable/ic_person_outline_black_24dp">
+        android:icon="@drawable/ic_person_outline_black_24dp"
+        android:backgroundTint="@android:color/white">
     </item>
     <item
         android:id="@+id/action_settings"

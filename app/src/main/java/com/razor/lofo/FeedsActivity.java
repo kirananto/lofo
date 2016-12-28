@@ -16,12 +16,19 @@
 
 package com.razor.lofo;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -31,8 +38,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,7 +54,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedsActivity extends AppCompatActivity implements PostsFragment.OnPostSelectedListener {
+public class FeedsActivity extends AppCompatActivity implements PostsFragment.OnPostSelectedListener,NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "FeedsActivity";
     private FloatingActionButton mFab;
 
@@ -55,16 +65,32 @@ public class FeedsActivity extends AppCompatActivity implements PostsFragment.On
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         ViewPager viewPager = (ViewPager) findViewById(R.id.feeds_view_pager);
         FeedsPagerAdapter adapter = new FeedsPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(PostsFragment.newInstance(PostsFragment.TYPE_HOME), "HOME");
-        adapter.addFragment(PostsFragment.newInstance(PostsFragment.TYPE_FEED), "FEED");
+        adapter.addFragment(PostsFragment.newInstance(PostsFragment.TYPE_MISSING), "MISSING");
+        adapter.addFragment(PostsFragment.newInstance(PostsFragment.TYPE_FOUND), "FOUND");
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(1);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.feeds_tab_layout);
         tabLayout.setupWithViewPager(viewPager);
-
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        ImageView author_icon = (ImageView) header.findViewById(R.id.author_icon_navigation_drawer);
+        TextView author_name = (TextView) header.findViewById(R.id.author_name);
+        Context context = author_icon.getContext();
+        Glide.with(context)
+                .load(user.getPhotoUrl().toString())
+                .crossFade()
+                .centerCrop()
+                .into(author_icon);
+        author_name.setText("Hi, "+FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        navigationView.setNavigationItemSelectedListener(this);
         mFab = (FloatingActionButton) findViewById(R.id.fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,5 +188,37 @@ public class FeedsActivity extends AppCompatActivity implements PostsFragment.On
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+
+
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_children) {
+            //TODO
+        } else if (id == R.id.nav_share) {
+            Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            sharingIntent.putExtra(Intent.EXTRA_TEXT, "SHARE");
+            startActivity(Intent.createChooser(sharingIntent, "Share via"));
+        } else if (id == R.id.nav_send) {
+            Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            sharingIntent.putExtra(Intent.EXTRA_TEXT, "SHARE");
+            startActivity(Intent.createChooser(sharingIntent, "Share via"));
+        } else if (id == R.id.nav_mail) {
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                    "mailto","KIRAN ANTO", null));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "REGARDING CONTENT OF CSE BETA App");
+            startActivity(Intent.createChooser(emailIntent, "Send email..."));
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

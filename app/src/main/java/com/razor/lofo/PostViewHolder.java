@@ -35,7 +35,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     public ValueEventListener mPostListener;
 
     public enum LikeStatus { LIKED, NOT_LIKED }
-    private final ImageView mLikeIcon;
+    //private final ImageView mLikeIcon;
     private static final int POST_TEXT_MAX_LINES = 6;
     private ImageView mPhotoView;
     private ImageView mIconView;
@@ -54,7 +54,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         mAuthorView = (TextView) mView.findViewById(R.id.post_author_name);
         mPostTextView = (TextView) itemView.findViewById(R.id.post_text);
         mTimestampView = (TextView) itemView.findViewById(R.id.post_timestamp);
-        mNumLikesView = (TextView) itemView.findViewById(R.id.post_num_likes);
+       // mNumLikesView = (TextView) itemView.findViewById(R.id.post_num_likes);
 
         itemView.findViewById(R.id.post_comment_icon).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,13 +62,13 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
                 mListener.showComments();
             }
         });
-        mLikeIcon = (ImageView) itemView.findViewById(R.id.post_like_icon);
-        mLikeIcon.setOnClickListener(new View.OnClickListener() {
+       // mLikeIcon = (ImageView) itemView.findViewById(R.id.post_like_icon);
+        /*mLikeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mListener.toggleLike();
             }
-        });
+        });*/
     }
 
     public void setPhoto(String url) {
@@ -140,10 +140,10 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         mListener = listener;
     }
 
-    public void setLikeStatus(LikeStatus status, Context context) {
+   /* public void setLikeStatus(LikeStatus status, Context context) {
         mLikeIcon.setImageDrawable(ContextCompat.getDrawable(context,
                 status == LikeStatus.LIKED ? R.drawable.heart_full : R.drawable.heart_empty));
-    }
+    }*/
 
 
     public interface PostClickListener {
