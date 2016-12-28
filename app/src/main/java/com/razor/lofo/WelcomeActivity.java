@@ -102,7 +102,6 @@ public class WelcomeActivity extends ProfileActivity implements
         });
 
         findViewById(R.id.sign_in_button).setOnClickListener(this);
-        findViewById(R.id.explore_button).setOnClickListener(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -130,28 +129,8 @@ public class WelcomeActivity extends ProfileActivity implements
 
     @Override
     public void onClick(View v) {
-        int id = v.getId();
-        switch (id) {
-            case R.id.explore_button:
-                mAuth.signInAnonymously().addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        updateUI(null);
-                    }
-                }).addOnFailureListener( new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(WelcomeActivity.this, "Unable to sign in anonymously.",
-                                Toast.LENGTH_SHORT).show();
-                            Log.e(TAG, e.getMessage());
-                    }
-                });
-                break;
-            case R.id.sign_in_button:
-                launchSignInIntent();
-                break;
-        }
-    }
+        if (v.getId() == R.id.sign_in_button) {
+                launchSignInIntent();     }    }
 
     private void launchSignInIntent() {
         Intent intent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);

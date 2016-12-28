@@ -32,9 +32,12 @@ import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,7 +58,6 @@ public class NewPostActivity extends BaseActivity implements
     private static final int THUMBNAIL_MAX_DIMENSION = 640;
     private static final int FULL_SIZE_MAX_DIMENSION = 1280;
     private Button mSubmitButton;
-
     private ImageView mImageView;
     private Uri mFileUri;
     private Bitmap mResizedBitmap;
@@ -76,6 +78,14 @@ public class NewPostActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
 
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.category, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
         // find the retained fragment on activity restarts
         FragmentManager fm = getSupportFragmentManager();
         mTaskFragment = (NewPostUploadTaskFragment) fm.findFragmentByTag(TAG_TASK_FRAGMENT);
@@ -105,7 +115,6 @@ public class NewPostActivity extends BaseActivity implements
             mThumbnail = thumbnail;
         }
         final EditText descriptionText = (EditText) findViewById(R.id.new_post_text);
-
         mSubmitButton = (Button) findViewById(R.id.new_post_submit);
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +124,8 @@ public class NewPostActivity extends BaseActivity implements
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
+                String category = spinner.getSelectedItem().toString();
+                //Log.e("LOGGGGGG ###########",category);
                 String postText = descriptionText.getText().toString();
                 if (TextUtils.isEmpty(postText)) {
                     descriptionText.setError(getString(R.string.error_required_field));
@@ -128,11 +139,10 @@ public class NewPostActivity extends BaseActivity implements
                 String bitmapPath = "/" + FirebaseUtil.getCurrentUserId() + "/full/" + timestamp.toString() + "/";
                 String thumbnailPath = "/" + FirebaseUtil.getCurrentUserId() + "/thumb/" + timestamp.toString() + "/";
                 mTaskFragment.uploadPost(mResizedBitmap, bitmapPath, mThumbnail, thumbnailPath, mFileUri.getLastPathSegment(),
-                        postText);
+                        postText,category);
             }
         });
     }
-
     @Override
     public void onPostUploaded(final String error) {
         NewPostActivity.this.runOnUiThread(new Runnable() {

@@ -46,6 +46,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class NewPostUploadTaskFragment extends Fragment {
@@ -115,8 +116,8 @@ public class NewPostUploadTaskFragment extends Fragment {
     }
 
     public void uploadPost(Bitmap bitmap, String inBitmapPath, Bitmap thumbnail, String inThumbnailPath,
-                           String inFileName, String inPostText) {
-        UploadPostTask uploadTask = new UploadPostTask(bitmap, inBitmapPath, thumbnail, inThumbnailPath, inFileName, inPostText);
+                           String inFileName, String inPostText, String category) {
+        UploadPostTask uploadTask = new UploadPostTask(bitmap, inBitmapPath, thumbnail, inThumbnailPath, inFileName, inPostText, category);
         uploadTask.execute();
     }
 
@@ -126,13 +127,15 @@ public class NewPostUploadTaskFragment extends Fragment {
         private String postText;
         private String fileName;
         private String bitmapPath;
+        private String Category;
         private String thumbnailPath;
 
         public UploadPostTask(Bitmap bitmap, String inBitmapPath, Bitmap thumbnail, String inThumbnailPath,
-                              String inFileName, String inPostText) {
+                              String inFileName, String inPostText,String category) {
             bitmapReference = new WeakReference<Bitmap>(bitmap);
             thumbnailReference = new WeakReference<Bitmap>(thumbnail);
             postText = inPostText;
+            Category = category;
             fileName = inFileName;
             bitmapPath = inBitmapPath;
             thumbnailPath = inThumbnailPath;
@@ -187,7 +190,7 @@ public class NewPostUploadTaskFragment extends Fragment {
                                 return;
                             }
                             Post newPost = new Post(author, fullSizeUrl.toString(), fullSizeRef.toString(),
-                                    thumbnailUrl.toString(), thumbnailRef.toString(), postText, ServerValue.TIMESTAMP);
+                                    thumbnailUrl.toString(), thumbnailRef.toString(), postText, ServerValue.TIMESTAMP, Category);
 
                             Map<String, Object> updatedUserData = new HashMap<>();
                             updatedUserData.put(FirebaseUtil.getPeoplePath() + author.getUid() + "/posts/"

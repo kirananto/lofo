@@ -127,6 +127,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
+
     public void setTimestamp(String timestamp) {
         mTimestampView.setText(timestamp);
     }

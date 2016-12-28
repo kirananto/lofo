@@ -35,6 +35,20 @@
     <string name="title_activity_welcome"> LoFo</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="people">People</string>
+    <string name="vehicle">Vehicles</string>
+    <string name="ornaments">Ornaments</string>
+    <string name="goods">Goods</string>
+    <string name="electronics">Electronics</string>
+    <string name="other">Other</string>
+        <string-array name="category">
+            <item>@string/people</item>
+            <item>@string/vehicle</item>
+            <item>@string/ornaments</item>
+            <item>@string/goods</item>
+            <item>@string/electronics</item>
+            <item>@string/other</item>
+        </string-array>
     <string name="motto"> The Easiest way to find your stuffs </string>
     <string name="skip">skip sign in</string>
     <string name="sign_in_button_text">sign in</string>

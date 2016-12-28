@@ -33,24 +33,7 @@
         android:layout_marginTop="61dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-
-    </android.support.design.widget.TextInputLayout>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:id="@+id/new_post_text"
-        android:hint="Describe your post"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_below="@+id/new_post_picture"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="52dp" />
 
     <Button
         android:layout_width="300dp"
@@ -63,5 +46,26 @@
         android:layout_below="@+id/new_post_text"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="57dp" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_above="@+id/new_post_submit"
+        android:layout_marginBottom="120dp"
+        android:layout_alignEnd="@+id/new_post_submit"
+        android:layout_alignStart="@+id/new_post_text" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:id="@+id/new_post_text"
+        android:hint="Describe your post"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/new_post_picture"
+        android:layout_marginTop="162dp"
+        android:layout_alignEnd="@+id/new_post_submit"
+        android:layout_alignStart="@+id/new_post_submit" />
 
 </RelativeLayout>

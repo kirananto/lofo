@@ -18,19 +18,26 @@
                 android:id="@+id/nav_general"
                 android:title="General" />
             <item
-                android:id="@+id/nav_children"
+                android:id="@+id/nav_people"
                 android:title="People" />
 
             <item
                 android:id="@+id/nav_vehicles"
                 android:title="Vehicles" />
             <item
-                android:id="@+id/nav_mobile"
-                android:title="Mobile Phones" />
+                android:id="@+id/nav_ornaments"
+                android:title="Ornaments" />
 
             <item
-                android:id="@+id/nav_Electronics"
+                android:id="@+id/nav_electronics"
                 android:title="Electronics" />
+            <item
+                android:id="@+id/nav_goods"
+                android:title="Goods" />
+
+            <item
+                android:id="@+id/nav_other"
+                android:title="Other" />
         </menu>
     </item>
 

@@ -19,7 +19,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/gradient"
+    android:background="@drawable/repeating_texture"
     tools:context=".WelcomeActivity">
 
     <ImageView
@@ -56,30 +56,24 @@
 
     <com.google.android.gms.common.SignInButton
     android:id="@+id/sign_in_button"
-    android:layout_width="200dp"
+    android:layout_width="202dp"
         android:layout_gravity="center_horizontal"
     android:text="@string/sign_in_button_text"
         android:layout_below="@+id/welcome_moto"
-        android:layout_centerHorizontal="true"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:layout_alignStart="@+id/welcome_moto"
+        android:layout_alignEnd="@+id/welcome_moto" />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
-        android:layout_width="200dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="28dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:layout_below="@+id/sign_in_button"
-        android:layout_alignStart="@+id/sign_in_button" />
+        android:layout_alignStart="@+id/sign_in_button"
+        android:layout_width="199dp"
+        android:layout_alignEnd="@+id/sign_in_button" />
 
-    <TextView
-        android:id="@+id/explore_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/skip"
-        style="@style/WelcomeScreenMottoTextStyle"
-        android:layout_marginBottom="18dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/logo" />
 </RelativeLayout>

@@ -245,8 +245,18 @@ public class ProfileActivity extends BaseActivity implements
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_children) {
-            //TODO
+        if (id == R.id.nav_other) {
+            Global.Category = "Other";
+        } if (id == R.id.nav_electronics) {
+            Global.Category = "Electronics";
+        }if (id == R.id.nav_ornaments) {
+            Global.Category = "Ornaments";
+        }if (id == R.id.nav_goods) {
+            Global.Category = "Goods";
+        }if (id == R.id.nav_vehicles) {
+            Global.Category = "Vehicles";
+        }if (id == R.id.nav_people) {
+            Global.Category = "People";
         } else if (id == R.id.nav_share) {
             Intent sharingIntent = new Intent(Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
