@@ -36,6 +36,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -69,9 +71,10 @@ public class ProfileActivity extends BaseActivity implements
     private CircleImageView mProfilePhoto;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private TextView mProfileUsername;
-    private GoogleApiClient mGoogleApiClient;
+    public GoogleApiClient mGoogleApiClient;
 
     private static final int RC_SIGN_IN = 103;
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -79,6 +82,17 @@ public class ProfileActivity extends BaseActivity implements
         setContentView(R.layout.activity_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API,
+                        new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                                .requestEmail()
+                                .requestIdToken(getString(R.string.default_web_client_id))
+                                .build()
+                ).build();
 
         // Initialize authentication and set up callbacks
         mAuth = FirebaseAuth.getInstance();
@@ -88,6 +102,7 @@ public class ProfileActivity extends BaseActivity implements
         mProfileUi = (ViewGroup) findViewById(R.id.profile);
 
         mProfilePhoto = (CircleImageView) findViewById(R.id.profile_user_photo);
+        mProfilePhoto.setImageResource(R.drawable.anonymous);
         mProfileUsername = (TextView) findViewById(R.id.profile_user_name);
         findViewById(R.id.show_feeds_button).setOnClickListener(this);
         findViewById(R.id.sign_out_button).setOnClickListener(this);
@@ -122,15 +137,22 @@ public class ProfileActivity extends BaseActivity implements
         int id = v.getId();
         switch(id) {
             case R.id.sign_out_button:
-                mAuth.signOut();
-                Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-                showSignedOutUI();
+                signout();
                 break;
             case R.id.show_feeds_button:
                 Intent feedsIntent = new Intent(this, FeedsActivity.class);
                 startActivity(feedsIntent);
                 break;
         }
+    }
+
+    public void signout()
+    {
+
+        mAuth.signOut();
+        LoginManager.getInstance().logOut();
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+        startActivity(new Intent(this, WelcomeActivity.class));
     }
 
     public void showSignedInUI(FirebaseUser firebaseUser) {
@@ -165,8 +187,7 @@ public class ProfileActivity extends BaseActivity implements
 
      public void showSignedOutUI() {
         Log.d(TAG, "Showing signed out UI");
-        mProfileUsername.setText("");
-        mProfileUi.setVisibility(View.GONE);
+         //startActivity(new Intent(this, WelcomeActivity.class));
     }
 
     @Override

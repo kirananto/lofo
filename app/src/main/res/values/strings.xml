@@ -18,7 +18,7 @@
     <string name="app_name">LoFo</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_feed">FeedActivity</string>
-    <string name="server_client_id">1014292022054-m1gmvf0mgfp5ovc4gamqunneuembmn1p.apps.googleusercontent.com</string>
+    <string name="server_client_id">1014292022054-9ugm050vlg0v11st2csrobllef3un82m.apps.googleusercontent.com</string>
     <string name="server_widget_url">http://www.google.com</string>
 
     <string name="title_activity_feeds">FeedsActivity</string>
@@ -26,9 +26,10 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_login">Sign in</string>
     <string name="facebook_app_id">1759544837616905</string>
+    <string name="fb_login_protocol_scheme">fb1759544837616905</string>
     <!-- Content Description for images -->
     <string name="desc_google_icon">Google Logo</string>
-    <string name="server_client_id_web">1014292022054-m1gmvf0mgfp5ovc4gamqunneuembmn1p.apps.googleusercontent.com</string>
+    <string name="server_client_id_web">1014292022054-9ugm050vlg0v11st2csrobllef3un82m.apps.googleusercontent.com</string>
     <string name="project_id">lofo-59afa</string>
     <string name="title_activity_welcome"> LoFo</string>
     <string name="dummy_button">Dummy Button</string>
@@ -37,7 +38,8 @@
     <string name="skip">skip sign in</string>
     <string name="sign_in_button_text">sign in</string>
     <string name="sign_out_button_text">sign out</string>
-    <string name="show_feed_button_text">show feed</string>
+    <string name="missing">Check Missing </string>
+    <string name="add_found"> Add Found Items </string>
     <string name="drawer_profile_title">Profile</string>
     <string name="drawer_settings_title">Settings</string>
     <string name="drawer_your_feed_title">Your Feed</string>
