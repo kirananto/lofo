@@ -38,11 +38,11 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     public enum LikeStatus { LIKED, NOT_LIKED }
     //private final ImageView mLikeIcon;
     private static final int POST_TEXT_MAX_LINES = 6;
-    private ImageView mPhotoView;
-    private ImageView mIconView;
-    private TextView mAuthorView;
-    private TextView mPostTextView;
-    private TextView mTimestampView;
+    private final ImageView mPhotoView;
+    private final ImageView mIconView;
+    private final TextView mAuthorView;
+    private final TextView mPostTextView;
+    private final TextView mTimestampView;
     private TextView mNumLikesView;
     public String mPostKey;
     public ValueEventListener mLikeListener;

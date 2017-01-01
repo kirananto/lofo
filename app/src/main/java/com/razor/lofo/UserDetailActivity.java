@@ -224,7 +224,7 @@ public class UserDetailActivity extends AppCompatActivity {
     }
 
     class GridAdapter extends RecyclerView.Adapter<GridImageHolder> {
-        private List<String> mPostPaths;
+        private final List<String> mPostPaths;
 
         public GridAdapter() {
             mPostPaths = new ArrayList<String>();
@@ -291,7 +291,7 @@ public class UserDetailActivity extends AppCompatActivity {
     }
 
     private class GridImageHolder extends RecyclerView.ViewHolder {
-        public ImageView imageView;
+        public final ImageView imageView;
 
         public GridImageHolder(ImageView itemView) {
             super(itemView);
