@@ -32,7 +32,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ServerValue;
 import com.razor.lofo.Models.Author;
 import com.razor.lofo.Models.Post;
 import com.google.firebase.storage.FirebaseStorage;
@@ -121,14 +120,14 @@ public class NewPostUploadTaskFragment extends Fragment {
     }
 
     class UploadPostTask extends AsyncTask<Void, Void, Void> {
-        private WeakReference<Bitmap> bitmapReference;
-        private WeakReference<Bitmap> thumbnailReference;
-        private String postText;
-        private String fileName;
-        private String bitmapPath;
-        private String Category;
-        private String thumbnailPath;
-        private String LostFound;
+        private final WeakReference<Bitmap> bitmapReference;
+        private final WeakReference<Bitmap> thumbnailReference;
+        private final String postText;
+        private final String fileName;
+        private final String bitmapPath;
+        private final String Category;
+        private final String thumbnailPath;
+        private final String LostFound;
 
         public UploadPostTask(Bitmap bitmap, String inBitmapPath, Bitmap thumbnail, String inThumbnailPath,
                               String inFileName, String inPostText,String category,String lf) {
@@ -191,7 +190,7 @@ public class NewPostUploadTaskFragment extends Fragment {
                                 return;
                             }
                             Post newPost = new Post(author, fullSizeUrl.toString(), fullSizeRef.toString(),
-                                    thumbnailUrl.toString(), thumbnailRef.toString(), postText, ServerValue.TIMESTAMP, Category,LostFound);
+                                    thumbnailUrl.toString(), thumbnailRef.toString(), postText, Category,LostFound);
 
                             Map<String, Object> updatedUserData = new HashMap<>();
                             updatedUserData.put(FirebaseUtil.getPeoplePath() + author.getUid() + "/posts/"
@@ -237,7 +236,7 @@ public class NewPostUploadTaskFragment extends Fragment {
     }
 
     class LoadResizedBitmapTask extends AsyncTask<Uri, Void, Bitmap> {
-        private int mMaxDimension;
+        private final int mMaxDimension;
 
         public LoadResizedBitmapTask(int maxDimension) {
             mMaxDimension = maxDimension;
@@ -271,7 +270,7 @@ public class NewPostUploadTaskFragment extends Fragment {
         }
     }
 
-    public static int calculateInSampleSize(
+    private static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // Raw height and width of image
         final int height = options.outHeight;
@@ -294,7 +293,7 @@ public class NewPostUploadTaskFragment extends Fragment {
         return inSampleSize;
     }
 
-    public Bitmap decodeSampledBitmapFromUri(Uri fileUri, int reqWidth, int reqHeight)
+    private Bitmap decodeSampledBitmapFromUri(Uri fileUri, int reqWidth, int reqHeight)
             throws IOException {
         InputStream stream = new BufferedInputStream(
                 mApplicationContext.getContentResolver().openInputStream(fileUri));

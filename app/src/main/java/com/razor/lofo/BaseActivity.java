@@ -25,7 +25,7 @@ import android.util.Log;
 public class BaseActivity extends AppCompatActivity {
     private static final String TAG_DIALOG_FRAGMENT = "tagDialogFragment";
 
-    protected void showProgressDialog(String message) {
+    void showProgressDialog(String message) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment prev = getExistingDialogFragment();
         if (prev == null) {
@@ -34,7 +34,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected void dismissProgressDialog() {
+    void dismissProgressDialog() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment prev = getExistingDialogFragment();
         if (prev != null) {

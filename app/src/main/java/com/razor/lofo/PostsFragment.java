@@ -28,25 +28,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.razor.lofo.Models.Author;
 import com.razor.lofo.Models.Post;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Shows a list of posts.
  */
 public class PostsFragment extends Fragment {
 
-    public static final String TAG = "PostsFragment";
+    private static final String TAG = "PostsFragment";
     private static final String KEY_LAYOUT_POSITION = "layoutPosition";
     private static final String KEY_TYPE = "type";
     public static final int TYPE_MISSING = 1001;
@@ -138,7 +129,7 @@ public class PostsFragment extends Fragment {
             @Override
             public void populateViewHolder(final PostViewHolder postViewHolder,
                                            final Post post, final int position) {
-                setupPost(postViewHolder, post, position, null);
+                setupPost(postViewHolder, post, position);
             }
 
             @Override
@@ -149,7 +140,7 @@ public class PostsFragment extends Fragment {
         };
     }
 
-    private void setupPost(final PostViewHolder postViewHolder, final Post post, final int position, final String inPostKey) {
+    private void setupPost(final PostViewHolder postViewHolder, final Post post, final int position) {
         postViewHolder.setPhoto(post.getThumb_url());
         postViewHolder.setText(post.getText());
         postViewHolder.setTimestamp(DateUtils.getRelativeTimeSpanString(
@@ -158,7 +149,7 @@ public class PostsFragment extends Fragment {
         if (mAdapter instanceof FirebaseRecyclerAdapter) {
             postKey = ((FirebaseRecyclerAdapter) mAdapter).getRef(position).getKey();
         } else {
-            postKey = inPostKey;
+            postKey = null;
         }
 
         Author author = post.getAuthor();

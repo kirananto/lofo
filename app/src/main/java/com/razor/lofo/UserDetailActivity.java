@@ -233,7 +233,7 @@ public class UserDetailActivity extends AppCompatActivity {
         @Override
         public GridImageHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             ImageView imageView = new ImageView(UserDetailActivity.this);
-            int tileDimPx = getPixelsFromDps(100);
+            int tileDimPx = getPixelsFromDps();
             imageView.setLayoutParams(new GridView.LayoutParams(tileDimPx, tileDimPx));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8, 8, 8, 8);
@@ -284,9 +284,9 @@ public class UserDetailActivity extends AppCompatActivity {
             return mPostPaths.size();
         }
 
-        private int getPixelsFromDps(int dps) {
+        private int getPixelsFromDps() {
             final float scale = UserDetailActivity.this.getResources().getDisplayMetrics().density;
-            return (int) (dps * scale + 0.5f);
+            return (int) (100 * scale + 0.5f);
         }
     }
 

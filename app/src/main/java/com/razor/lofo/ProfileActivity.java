@@ -75,7 +75,7 @@ public class ProfileActivity extends BaseActivity implements
     private CircleImageView mProfilePhoto;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private TextView mProfileUsername;
-    public GoogleApiClient mGoogleApiClient;
+    GoogleApiClient mGoogleApiClient;
 
     private static final int RC_SIGN_IN = 103;
 
@@ -156,7 +156,7 @@ public class ProfileActivity extends BaseActivity implements
         }
     }
 
-    public void signout()
+    private void signout()
     {
 
         mAuth.signOut();
@@ -165,7 +165,7 @@ public class ProfileActivity extends BaseActivity implements
         startActivity(new Intent(this, WelcomeActivity.class));
     }
 
-    public void showSignedInUI(FirebaseUser firebaseUser) {
+    private void showSignedInUI(FirebaseUser firebaseUser) {
         Log.d(TAG, "Showing signed in UI");
         mProfileUi.setVisibility(View.VISIBLE);
         mProfileUsername.setVisibility(View.VISIBLE);
@@ -195,7 +195,7 @@ public class ProfileActivity extends BaseActivity implements
                 });
     }
 
-     public void showSignedOutUI() {
+     void showSignedOutUI() {
         Log.d(TAG, "Showing signed out UI");
          //startActivity(new Intent(this, WelcomeActivity.class));
     }

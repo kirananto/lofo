@@ -32,10 +32,10 @@ import com.razor.lofo.Models.Post;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FirebasePostQueryAdapter extends RecyclerView.Adapter<PostViewHolder> {
+class FirebasePostQueryAdapter extends RecyclerView.Adapter<PostViewHolder> {
     private final String TAG = "PostQueryAdapter";
     private List<String> mPostPaths;
-    private OnSetupViewListener mOnSetupViewListener;
+    private final OnSetupViewListener mOnSetupViewListener;
 
     public FirebasePostQueryAdapter(List<String> paths, OnSetupViewListener onSetupViewListener) {
         if (paths == null || paths.isEmpty()) {

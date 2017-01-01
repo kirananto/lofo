@@ -55,8 +55,8 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class NewPostActivity extends BaseActivity implements
         EasyPermissions.PermissionCallbacks,
         NewPostUploadTaskFragment.TaskCallbacks {
-    public static final String TAG = "NewPostActivity";
-    public static final String TAG_TASK_FRAGMENT = "newPostUploadTaskFragment";
+    private static final String TAG = "NewPostActivity";
+    private static final String TAG_TASK_FRAGMENT = "newPostUploadTaskFragment";
     private static final int THUMBNAIL_MAX_DIMENSION = 640;
     private static final int FULL_SIZE_MAX_DIMENSION = 1280;
     private Button mSubmitButton;

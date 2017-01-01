@@ -42,7 +42,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ServerValue;
 import com.razor.lofo.Models.Author;
 import com.razor.lofo.Models.Comment;
 
@@ -54,7 +53,7 @@ import com.razor.lofo.Models.Comment;
  * post key ref as the argument.
  */
 public class CommentsFragment extends Fragment {
-    public static final String TAG = "CommentsFragment";
+    private static final String TAG = "CommentsFragment";
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String POST_REF_PARAM = "post_ref_param";
     private static final int DEFAULT_MSG_LENGTH_LIMIT = 256;
@@ -162,8 +161,8 @@ public class CommentsFragment extends Fragment {
                 Author author = new Author(user.getDisplayName(),
                         user.getPhotoUrl().toString(), user.getUid());
 
-                Comment comment = new Comment(author, commentText.toString(),
-                        ServerValue.TIMESTAMP);
+                Comment comment = new Comment(author, commentText.toString()
+                );
                 commentsRef.push().setValue(comment, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError error, DatabaseReference firebase) {

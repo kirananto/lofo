@@ -25,10 +25,10 @@ public class Comment {
         // empty default constructor, necessary for Firebase to be able to deserialize comments
     }
 
-    public Comment(Author author, String text, Object timestamp) {
+    public Comment(Author author, String text) {
         this.author = author;
         this.text = text;
-        this.timestamp = timestamp;
+        this.timestamp = com.google.firebase.database.ServerValue.TIMESTAMP;
     }
 
     public Author getAuthor() {

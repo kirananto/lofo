@@ -29,7 +29,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -72,7 +71,7 @@ public class FeedsActivity extends ProfileActivity implements PostsFragment.OnPo
 
         // compute your public key and store it in base64EncodedPublicKey
         mHelper = new IabHelper(this, base64EncodedPublicKey);
-        mHelper.enableDebugLogging(true);
+        mHelper.enableDebugLogging();
         mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
             public void onIabSetupFinished(IabResult result) {
                 if (!result.isSuccess()) {
@@ -284,7 +283,7 @@ public class FeedsActivity extends ProfileActivity implements PostsFragment.OnPo
         }
     };
 
-    IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener
+    private final IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener
             = new IabHelper.OnIabPurchaseFinishedListener() {
         public void onIabPurchaseFinished(IabResult result, Purchase purchase)
         {

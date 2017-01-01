@@ -22,7 +22,7 @@ import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 
-public class GlideUtil {
+class GlideUtil {
     public static void loadImage(String url, ImageView imageView) {
         Context context = imageView.getContext();
         ColorDrawable cd = new ColorDrawable(ContextCompat.getColor(context, R.color.blue_grey_500));

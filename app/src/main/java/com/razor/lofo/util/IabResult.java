@@ -22,9 +22,10 @@ package com.razor.lofo.util;
  * can also inquire whether a result is a success or a failure by
  * calling {@link #isSuccess()} and {@link #isFailure()}.
  */
+@SuppressWarnings("ALL")
 public class IabResult {
-    int mResponse;
-    String mMessage;
+    private final int mResponse;
+    private final String mMessage;
 
     public IabResult(int response, String message) {
         mResponse = response;

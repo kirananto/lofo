@@ -34,13 +34,13 @@ public class Post {
         // empty default constructor, necessary for Firebase to be able to deserialize blog posts
     }
 
-    public Post(Author author, String full_url, String full_storage_uri, String thumb_url, String thumb_storage_uri, String text, Object timestamp,String categ,String lf) {
+    public Post(Author author, String full_url, String full_storage_uri, String thumb_url, String thumb_storage_uri, String text, String categ, String lf) {
         this.author = author;
         this.full_url = full_url;
         this.text = text;
         this.categ = categ;
         this.lf = lf;
-        this.timestamp = timestamp;
+        this.timestamp = com.google.firebase.database.ServerValue.TIMESTAMP;
         this.thumb_storage_uri = thumb_storage_uri;
         this.thumb_url = thumb_url;
         this.full_storage_uri = full_storage_uri;
