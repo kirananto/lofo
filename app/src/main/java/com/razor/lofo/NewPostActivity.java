@@ -38,6 +38,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,13 +60,14 @@ public class NewPostActivity extends BaseActivity implements
     private static final int THUMBNAIL_MAX_DIMENSION = 640;
     private static final int FULL_SIZE_MAX_DIMENSION = 1280;
     private Button mSubmitButton;
+    private RadioButton radioButton;
     private ImageView mImageView;
     private Uri mFileUri;
     private Bitmap mResizedBitmap;
     private Bitmap mThumbnail;
 
     private NewPostUploadTaskFragment mTaskFragment;
-
+    private RadioGroup rg;
     private static final int TC_PICK_IMAGE = 101;
     private static final int RC_CAMERA_PERMISSIONS = 102;
 
@@ -87,6 +89,7 @@ public class NewPostActivity extends BaseActivity implements
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        rg = (RadioGroup) findViewById(R.id.radiogroup1);
         // find the retained fragment on activity restarts
         FragmentManager fm = getSupportFragmentManager();
         mTaskFragment = (NewPostUploadTaskFragment) fm.findFragmentByTag(TAG_TASK_FRAGMENT);
@@ -127,6 +130,11 @@ public class NewPostActivity extends BaseActivity implements
                 }
                 String category = spinner.getSelectedItem().toString();
                 //Log.e("LOGGGGGG ###########",category);
+                int selectedId = rg.getCheckedRadioButtonId();
+
+                // find the radiobutton by returned id
+                radioButton = (RadioButton) findViewById(selectedId);
+                String lf = radioButton.getText().toString();
                 String postText = descriptionText.getText().toString();
                 if (TextUtils.isEmpty(postText)) {
                     descriptionText.setError(getString(R.string.error_required_field));
@@ -140,7 +148,7 @@ public class NewPostActivity extends BaseActivity implements
                 String bitmapPath = "/" + FirebaseUtil.getCurrentUserId() + "/full/" + timestamp.toString() + "/";
                 String thumbnailPath = "/" + FirebaseUtil.getCurrentUserId() + "/thumb/" + timestamp.toString() + "/";
                 mTaskFragment.uploadPost(mResizedBitmap, bitmapPath, mThumbnail, thumbnailPath, mFileUri.getLastPathSegment(),
-                        postText,category);
+                        postText,category,lf);
             }
         });
     }

@@ -81,6 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/spinner"
             android:orientation="horizontal"
+            android:id="@+id/radiogroup1"
             android:weightSum="1"
             android:layout_marginTop="16dp"
             android:layout_alignStart="@+id/new_post_text"
@@ -92,6 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="34dp"
                 android:id="@+id/radio_missing"
+                android:checked="true"
                 android:onClick="onRadioButtonClicked"
                 android:layout_weight="0.14" />
 

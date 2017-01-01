@@ -57,9 +57,6 @@ class FirebaseUtil {
         return "posts/";
     }
 
-    public static DatabaseReference getUsersRef() {
-        return getBaseRef().child("users");
-    }
 
     public static String getPeoplePath() {
         return "people/";

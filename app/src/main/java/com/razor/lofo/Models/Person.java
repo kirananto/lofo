@@ -19,8 +19,8 @@ package com.razor.lofo.Models;
 import java.util.Map;
 
 public class Person {
-    private String full_name;
-    private String profile_picture;
+    private String displayName;
+    private String photoUrl;
     private Map<String, Boolean> posts;
     private Map<String, Object> following;
 
@@ -28,17 +28,17 @@ public class Person {
 
     }
 
-    public Person(String full_name, String profile_picture) {
-        this.full_name = full_name;
-        this.profile_picture = profile_picture;
+    public Person(String displayName, String photoUrl) {
+        this.displayName = displayName;
+        this.photoUrl = photoUrl;
     }
 
-    public String getFull_name() {
-        return full_name;
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public String getProfile_picture() {
-        return profile_picture;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
     public Map<String, Boolean> getPosts() {

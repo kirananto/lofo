@@ -33,7 +33,23 @@
         android:fitsSystemWindows="true"
         tools:context="com.razor.lofo.FeedsActivity">
 
+        <android.support.v4.view.ViewPager
+            android:id="@+id/feeds_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/repeating_texture"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            />
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="@dimen/fab_margin"
+            android:background="@drawable/gradient"
+            android:src="@android:drawable/ic_input_add"
+            android:tint="@android:color/white"/>
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -57,23 +73,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/feeds_view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/repeating_texture"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-         />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="@dimen/fab_margin"
-        android:background="@drawable/gradient"
-        android:src="@android:drawable/ic_input_add"
-        android:tint="@android:color/white"/>
 </android.support.design.widget.CoordinatorLayout>
 
 <android.support.design.widget.NavigationView

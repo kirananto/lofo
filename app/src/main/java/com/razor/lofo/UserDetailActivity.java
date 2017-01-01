@@ -157,8 +157,8 @@ public class UserDetailActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Person person = dataSnapshot.getValue(Person.class);
                 CircleImageView userPhoto = (CircleImageView) findViewById(R.id.user_detail_photo);
-                GlideUtil.loadProfileIcon(person.getProfile_picture(), userPhoto);
-                String name = person.getFull_name();
+                GlideUtil.loadProfileIcon(person.getPhotoUrl(), userPhoto);
+                String name = person.getDisplayName();
                 Log.e("logggggggg",name);
                 if (name == null) {
                     name = getString(R.string.user_info_no_name);
