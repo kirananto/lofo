@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/nav_notif"
-        android:title="Home" />
+    <item android:title="Home" />
 
     <item
         android:id="@+id/nav_mail"
@@ -16,9 +14,7 @@
     <item android:title="Categories"
         android:icon="@android:drawable/ic_search_category_default">
         <menu>
-            <item
-                android:id="@+id/nav_general"
-                android:title="General" />
+            <item android:title="General" />
             <item
                 android:id="@+id/nav_people"
                 android:title="People" />

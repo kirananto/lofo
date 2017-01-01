@@ -14,7 +14,7 @@
   ~ limitations under the License.
   -->
 
-<resources>
+<resources xmlns:android="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat">
@@ -28,9 +28,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.Welcome" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+    <style name="AppTheme.Welcome" parent="AppTheme.NoActionBar"
+        android:background="@drawable/repeating_texture">
+
 
     </style>
 

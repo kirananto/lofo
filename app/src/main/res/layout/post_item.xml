@@ -46,7 +46,8 @@
             android:layout_marginLeft="4dp"
             style="@style/Base.TextAppearance.AppCompat.Title"
             android:textColor="@color/cardview_light_background"
-            android:text="Unknown"/>
+            android:text="Unknown"
+            android:textSize="20sp" />
         <TextView
             android:id="@+id/post_timestamp"
             android:layout_width="wrap_content"
@@ -55,7 +56,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_gravity="end"
-            android:textColor="@android:color/primary_text_light"
+            android:textColor="@android:color/white"
             android:textSize="18sp" />
     </RelativeLayout>
     <ImageView
@@ -69,7 +70,6 @@
             android:id="@+id/post_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:singleLine="false"
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"
             android:layout_marginTop="6dp"

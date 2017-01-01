@@ -53,6 +53,10 @@ class FirebaseUtil {
         return getBaseRef().child("posts");
     }
 
+    public static DatabaseReference getPostMissingRef() {
+        return getBaseRef().child("posts");
+    }
+
     public static String getPostsPath() {
         return "posts/";
     }

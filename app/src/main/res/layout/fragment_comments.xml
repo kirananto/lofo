@@ -33,8 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        android:id="@+id/comment_input">
+        android:orientation="horizontal">
 
         <EditText
             android:layout_width="0dp"

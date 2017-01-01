@@ -50,7 +50,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class UserDetailActivity extends AppCompatActivity {
     private final String TAG = "UserDetailActivity";
     public static final String USER_ID_EXTRA_NAME = "user_name";
-    private RecyclerView mRecyclerGrid;
     private GridAdapter mGridAdapter;
     private ValueEventListener mFollowingListener;
     private ValueEventListener mPersonInfoListener;
@@ -146,7 +145,7 @@ public class UserDetailActivity extends AppCompatActivity {
             }
         });
 
-        mRecyclerGrid = (RecyclerView) findViewById(R.id.user_posts_grid);
+        RecyclerView mRecyclerGrid = (RecyclerView) findViewById(R.id.user_posts_grid);
         mGridAdapter = new GridAdapter();
         mRecyclerGrid.setAdapter(mGridAdapter);
         mRecyclerGrid.setLayoutManager(new GridLayoutManager(this, GRID_NUM_COLUMNS));

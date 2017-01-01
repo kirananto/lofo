@@ -61,7 +61,6 @@ import java.util.List;
 
 public class FeedsActivity extends ProfileActivity implements PostsFragment.OnPostSelectedListener,NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "FeedsActivity";
-    private FloatingActionButton mFab;
     private IabHelper mHelper;
 
     @Override
@@ -112,7 +111,7 @@ public class FeedsActivity extends ProfileActivity implements PostsFragment.OnPo
                 .into(author_icon);
         author_name.setText("Hi, "+FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         navigationView.setNavigationItemSelectedListener(this);
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

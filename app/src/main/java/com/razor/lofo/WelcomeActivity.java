@@ -60,8 +60,6 @@ public class WelcomeActivity extends ProfileActivity implements
     private static final String TAG = "WelcomeActivity";
     private FirebaseAuth mAuth;
     private CallbackManager mCallbackManager;
-    private LoginButton loginButton;
-    private FirebaseAuth.AuthStateListener mAuthListener;
 
     private static final int RC_SIGN_IN = 103;
     @Override
@@ -79,7 +77,7 @@ public class WelcomeActivity extends ProfileActivity implements
                         ).build();*/
 
          mCallbackManager = CallbackManager.Factory.create();
-        loginButton = (LoginButton) findViewById(R.id.login_button);
+        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions("email", "public_profile");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -104,7 +102,7 @@ public class WelcomeActivity extends ProfileActivity implements
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
         mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
+        FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
