@@ -19,8 +19,6 @@ package com.razor.lofo;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 
 public class BaseActivity extends AppCompatActivity {
     private static final String TAG_DIALOG_FRAGMENT = "tagDialogFragment";

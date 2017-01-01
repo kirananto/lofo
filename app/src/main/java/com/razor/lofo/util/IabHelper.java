@@ -475,6 +475,7 @@ public class IabHelper {
             mRequestCode = requestCode;
             mPurchaseListener = listener;
             mPurchasingItemType = itemType;
+            assert pendingIntent != null;
             act.startIntentSenderForResult(pendingIntent.getIntentSender(),
                     requestCode, new Intent(),
                     Integer.valueOf(0), Integer.valueOf(0),
@@ -957,9 +958,12 @@ public class IabHelper {
             ArrayList<String> signatureList = ownedItems.getStringArrayList(
                     RESPONSE_INAPP_SIGNATURE_LIST);
 
+            assert purchaseDataList != null;
             for (int i = 0; i < purchaseDataList.size(); ++i) {
                 String purchaseData = purchaseDataList.get(i);
+                assert signatureList != null;
                 String signature = signatureList.get(i);
+                assert ownedSkus != null;
                 String sku = ownedSkus.get(i);
                 if (Security.verifyPurchase(mSignatureBase64, purchaseData, signature)) {
                     logDebug("Sku is owned: " + sku);
@@ -1046,6 +1050,7 @@ public class IabHelper {
             ArrayList<String> responseList = skuDetails.getStringArrayList(
                     RESPONSE_GET_SKU_DETAILS_LIST);
 
+            assert responseList != null;
             for (String thisResponse : responseList) {
                 SkuDetails d = new SkuDetails(itemType, thisResponse);
                 logDebug("Got sku details: " + d);

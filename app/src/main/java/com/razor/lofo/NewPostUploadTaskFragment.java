@@ -189,6 +189,8 @@ public class NewPostUploadTaskFragment extends Fragment {
                                         R.string.error_user_not_signed_in));
                                 return;
                             }
+                            assert fullSizeUrl != null;
+                            assert thumbnailUrl != null;
                             Post newPost = new Post(author, fullSizeUrl.toString(), fullSizeRef.toString(),
                                     thumbnailUrl.toString(), thumbnailRef.toString(), postText, Category,LostFound);
 

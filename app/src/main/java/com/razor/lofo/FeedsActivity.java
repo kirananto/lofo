@@ -20,6 +20,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import com.razor.lofo.util.IabHelper;
+
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -103,6 +105,7 @@ public class FeedsActivity extends ProfileActivity implements PostsFragment.OnPo
         ImageView author_icon = (ImageView) header.findViewById(R.id.author_icon_navigation_drawer);
         TextView author_name = (TextView) header.findViewById(R.id.author_name);
         Context context = author_icon.getContext();
+        assert user != null;
         Glide.with(context)
                 .load(user.getPhotoUrl().toString())
                 .crossFade()
@@ -136,6 +139,7 @@ public class FeedsActivity extends ProfileActivity implements PostsFragment.OnPo
     public void onPostLike(final String postKey) {
         final String userKey = FirebaseUtil.getCurrentUserId();
         final DatabaseReference postLikesRef = FirebaseUtil.getLikesRef();
+        assert userKey != null;
         postLikesRef.child(postKey).child(userKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -213,7 +217,7 @@ public class FeedsActivity extends ProfileActivity implements PostsFragment.OnPo
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_other) {
@@ -265,23 +269,25 @@ public class FeedsActivity extends ProfileActivity implements PostsFragment.OnPo
         return true;
     }
 
-    IabHelper.QueryInventoryFinishedListener
-            mQueryFinishedListener = new IabHelper.QueryInventoryFinishedListener() {
-        public void onQueryInventoryFinished(IabResult result, Inventory inventory)
-        {
-            if (result.isFailure()) {
-                // handle error
-                return;
-            }
-
-            String applePrice =
-                    inventory.getSkuDetails("SKU_APPLE").getPrice();
-            String bananaPrice =
-                    inventory.getSkuDetails("SKU_BANANA").getPrice();
-
-            // update the UI
-        }
-    };
+// --Commented out by Inspection START (1/1/2017 8:59 PM):
+//    IabHelper.QueryInventoryFinishedListener
+//            mQueryFinishedListener = new IabHelper.QueryInventoryFinishedListener() {
+//        public void onQueryInventoryFinished(IabResult result, Inventory inventory)
+//        {
+//            if (result.isFailure()) {
+//                // handle error
+//                return;
+//            }
+//
+//            String applePrice =
+//                    inventory.getSkuDetails("SKU_APPLE").getPrice();
+//            String bananaPrice =
+//                    inventory.getSkuDetails("SKU_BANANA").getPrice();
+//
+//            // update the UI
+//        }
+//    };
+// --Commented out by Inspection STOP (1/1/2017 8:59 PM)
 
     private final IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener
             = new IabHelper.OnIabPurchaseFinishedListener() {

@@ -158,6 +158,7 @@ public class CommentsFragment extends Fragment {
                             Toast.LENGTH_SHORT).show();
                 }
 
+                assert user != null;
                 Author author = new Author(user.getDisplayName(),
                         user.getPhotoUrl().toString(), user.getUid());
 
