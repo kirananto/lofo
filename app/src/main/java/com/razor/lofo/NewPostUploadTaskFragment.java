@@ -131,8 +131,8 @@ public class NewPostUploadTaskFragment extends Fragment {
 
         public UploadPostTask(Bitmap bitmap, String inBitmapPath, Bitmap thumbnail, String inThumbnailPath,
                               String inFileName, String inPostText,String category,String lf) {
-            bitmapReference = new WeakReference<Bitmap>(bitmap);
-            thumbnailReference = new WeakReference<Bitmap>(thumbnail);
+            bitmapReference = new WeakReference<>(bitmap);
+            thumbnailReference = new WeakReference<>(thumbnail);
             postText = inPostText;
             Category = category;
             LostFound = lf;

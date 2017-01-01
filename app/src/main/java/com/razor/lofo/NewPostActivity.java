@@ -167,6 +167,7 @@ public class NewPostActivity extends BaseActivity implements
         });
     }
 
+    @SuppressWarnings("Convert2Diamond")
     @AfterPermissionGranted(RC_CAMERA_PERMISSIONS)
     private void showImagePicker() {
         // Check for camera permissions
@@ -182,7 +183,7 @@ public class NewPostActivity extends BaseActivity implements
         mFileUri = Uri.fromFile(file);
 
         // Camera
-        final List<Intent> cameraIntents = new ArrayList<Intent>();
+        final List<Intent> cameraIntents = new ArrayList<>();
         final Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         final PackageManager packageManager = getPackageManager();
         final List<ResolveInfo> listCam = packageManager.queryIntentActivities(captureIntent, 0);

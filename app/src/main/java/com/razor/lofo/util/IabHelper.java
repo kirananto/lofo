@@ -445,22 +445,9 @@ public class IabHelper {
         try {
             logDebug("Constructing buy intent for " + sku + ", item type: " + itemType);
             Bundle buyIntentBundle;
-            if (null == null || ((List<String>) null).isEmpty()) {
-                // Purchasing a new item or subscription re-signup
-                buyIntentBundle = mService.getBuyIntent(3, mContext.getPackageName(), sku, itemType,
-                        extraData);
-            } else {
-                // Subscription upgrade/downgrade
-                if (!mSubscriptionUpdateSupported) {
-                    IabResult r = new IabResult(IABHELPER_SUBSCRIPTION_UPDATE_NOT_AVAILABLE,
-                            "Subscription updates are not available.");
-                    flagEndAsync();
-                    if (listener != null) listener.onIabPurchaseFinished(r, null);
-                    return;
-                }
-                buyIntentBundle = mService.getBuyIntentToReplaceSkus(5, mContext.getPackageName(),
-                        null, sku, itemType, extraData);
-            }
+            // Purchasing a new item or subscription re-signup
+            buyIntentBundle = mService.getBuyIntent(3, mContext.getPackageName(), sku, itemType,
+                    extraData);
             int response = getResponseCodeFromBundle(buyIntentBundle);
             if (response != BILLING_RESPONSE_RESULT_OK) {
                 logError("Unable to buy item, Error response: " + getResponseDesc(response));
@@ -478,8 +465,8 @@ public class IabHelper {
             assert pendingIntent != null;
             act.startIntentSenderForResult(pendingIntent.getIntentSender(),
                     requestCode, new Intent(),
-                    Integer.valueOf(0), Integer.valueOf(0),
-                    Integer.valueOf(0));
+                    0, 0,
+                    0);
         }
         catch (SendIntentException e) {
             logError("SendIntentException while launching purchase flow for sku " + sku);
@@ -548,7 +535,7 @@ public class IabHelper {
                 return true;
             }
 
-            Purchase purchase = null;
+            Purchase purchase;
             try {
                 purchase = new Purchase(mPurchasingItemType, purchaseData, dataSignature);
                 String sku = purchase.getSku();
@@ -795,7 +782,7 @@ public class IabHelper {
         throws IabAsyncInProgressException {
         checkNotDisposed();
         checkSetupDone("consume");
-        List<Purchase> purchases = new ArrayList<Purchase>();
+        List<Purchase> purchases = new ArrayList<>();
         purchases.add(purchase);
         consumeAsyncInternal(purchases, listener, null);
     }
@@ -862,7 +849,7 @@ public class IabHelper {
             logDebug("Bundle with null response code, assuming OK (known issue)");
             return BILLING_RESPONSE_RESULT_OK;
         }
-        else if (o instanceof Integer) return ((Integer)o).intValue();
+        else if (o instanceof Integer) return (Integer) o;
         else if (o instanceof Long) return (int)((Long)o).longValue();
         else {
             logError("Unexpected type for bundle response code.");
@@ -878,7 +865,7 @@ public class IabHelper {
             logError("Intent with no response code, assuming OK (known issue)");
             return BILLING_RESPONSE_RESULT_OK;
         }
-        else if (o instanceof Integer) return ((Integer)o).intValue();
+        else if (o instanceof Integer) return (Integer) o;
         else if (o instanceof Long) return (int)((Long)o).longValue();
         else {
             logError("Unexpected type for intent response code.");
@@ -995,7 +982,7 @@ public class IabHelper {
     private int querySkuDetails(String itemType, Inventory inv, List<String> moreSkus)
             throws RemoteException, JSONException {
         logDebug("Querying SKU details.");
-        ArrayList<String> skuList = new ArrayList<String>();
+        ArrayList<String> skuList = new ArrayList<>();
         skuList.addAll(inv.getAllOwnedSkus(itemType));
         if (moreSkus != null) {
             for (String sku : moreSkus) {
@@ -1011,19 +998,19 @@ public class IabHelper {
         }
 
         // Split the sku list in blocks of no more than 20 elements.
-        ArrayList<ArrayList<String>> packs = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> packs = new ArrayList<>();
         ArrayList<String> tempList;
         int n = skuList.size() / 20;
         int mod = skuList.size() % 20;
         for (int i = 0; i < n; i++) {
-            tempList = new ArrayList<String>();
+            tempList = new ArrayList<>();
             for (String s : skuList.subList(i * 20, i * 20 + 20)) {
                 tempList.add(s);
             }
             packs.add(tempList);
         }
         if (mod != 0) {
-            tempList = new ArrayList<String>();
+            tempList = new ArrayList<>();
             for (String s : skuList.subList(n * 20, n * 20 + mod)) {
                 tempList.add(s);
             }
@@ -1069,7 +1056,7 @@ public class IabHelper {
         flagStartAsync("consume");
         (new Thread(new Runnable() {
             public void run() {
-                final List<IabResult> results = new ArrayList<IabResult>();
+                final List<IabResult> results = new ArrayList<>();
                 for (Purchase purchase : purchases) {
                     try {
                         consume(purchase);

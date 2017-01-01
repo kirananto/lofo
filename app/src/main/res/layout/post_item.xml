@@ -63,8 +63,6 @@
         android:id="@+id/post_photo"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:scaleType="centerCrop" />
         <TextView
             android:id="@+id/post_text"

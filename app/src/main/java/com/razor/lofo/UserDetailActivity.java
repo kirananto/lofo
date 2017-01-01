@@ -168,7 +168,7 @@ public class UserDetailActivity extends AppCompatActivity {
                     ((TextView) findViewById(R.id.user_num_following))
                             .setText(numFollowing + " following");
                 }
-                List<String> paths = new ArrayList<String>(person.getPosts().keySet());
+                List<String> paths = new ArrayList<>(person.getPosts().keySet());
                 mGridAdapter.addPaths(paths);
                 String firstPostKey = paths.get(0);
 
@@ -227,7 +227,7 @@ public class UserDetailActivity extends AppCompatActivity {
         private final List<String> mPostPaths;
 
         public GridAdapter() {
-            mPostPaths = new ArrayList<String>();
+            mPostPaths = new ArrayList<>();
         }
 
         @Override
