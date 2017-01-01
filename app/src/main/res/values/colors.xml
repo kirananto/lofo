@@ -16,8 +16,8 @@
   -->
 
 <resources>
-    <color name="colorPrimary">#c62828</color>
-    <color name="colorPrimaryDark">#b71c1c</color>
+    <color name="colorPrimary">#212121</color>
+    <color name="colorPrimaryDark">#212121</color>
     <color name="colorAccent">#4a148c</color>
     <color name="Theatre">#4a148c</color>
     <color name="blue_grey_500">#607D8B</color>

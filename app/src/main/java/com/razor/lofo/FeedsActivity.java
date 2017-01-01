@@ -19,7 +19,7 @@ package com.razor.lofo;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.provider.Settings;
+import com.razor.lofo.util.IabHelper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -43,6 +43,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -50,18 +52,37 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.razor.lofo.util.IabResult;
+import com.razor.lofo.util.Inventory;
+import com.razor.lofo.util.Purchase;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedsActivity extends AppCompatActivity implements PostsFragment.OnPostSelectedListener,NavigationView.OnNavigationItemSelectedListener {
+public class FeedsActivity extends ProfileActivity implements PostsFragment.OnPostSelectedListener,NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "FeedsActivity";
     private FloatingActionButton mFab;
+    private IabHelper mHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feeds);
+
+        String base64EncodedPublicKey= "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApU2nQZ0ik0LkRwkJH1v0BA/Ji96Xf9lQLRGSSuIzSkb6n4eceId2U6m/t6hN3BNKaDN7Os2Nm2JGm2PFjr+cp7sJSy2xIqFBOOpHmDXbrEUXjz+Yo5oMx8WbC+WOJxvb9uC4UCpRcsUmR1+jy4BJIfO+ssLg8LivjPhW5DaaV/uFidy2Wq0E4I5xc3rysygozksLbsgMO1Yr1gxOUQ1VkSOAgZ9T495hiy4pUCeYUwg8ivj3X76gUlvMdpMz93JaNaj7Wqj1lxSwx8Fk/b4JKJ8DND2vmzHmqcLDOVGbt7ghTTAzq7a+XnRaHmb+RevFgpJ9RtLBnpyYyuZlrCogfQIDAQAB";
+
+        // compute your public key and store it in base64EncodedPublicKey
+        mHelper = new IabHelper(this, base64EncodedPublicKey);
+        mHelper.enableDebugLogging(true);
+        mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+            public void onIabSetupFinished(IabResult result) {
+                if (!result.isSuccess()) {
+                    // Oh no, there was a problem.
+                    Log.d(TAG, "Problem setting up In-app Billing: " + result);
+                }
+                // Hooray, IAB is fully set up!
+            }
+        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -199,7 +220,16 @@ public class FeedsActivity extends AppCompatActivity implements PostsFragment.On
         int id = item.getItemId();
         if (id == R.id.nav_other) {
             Global.Category = "Other";
-        } if (id == R.id.nav_electronics) {
+        } else if(id == R.id.nav_donate)
+        {
+            try {
+                mHelper.launchPurchaseFlow(this,"SKU_GAS", 10001,
+                        mPurchaseFinishedListener, "bGoa+V7g/yqDXvKRqq+JTFn4uQZbPiQJo4pf9RzJ");
+            } catch (IabHelper.IabAsyncInProgressException e) {
+                e.printStackTrace();
+            }
+        }
+        else if (id == R.id.nav_electronics) {
             Global.Category = "Electronics";
         }if (id == R.id.nav_ornaments) {
             Global.Category = "Ornaments";
@@ -209,6 +239,12 @@ public class FeedsActivity extends AppCompatActivity implements PostsFragment.On
             Global.Category = "Vehicles";
         }if (id == R.id.nav_people) {
             Global.Category = "People";
+        }if (id == R.id.nav_signout) {
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            mAuth.signOut();
+            LoginManager.getInstance().logOut();
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+            startActivity(new Intent(this, WelcomeActivity.class));
         }else if (id == R.id.nav_share) {
             Intent sharingIntent = new Intent(Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
@@ -229,5 +265,50 @@ public class FeedsActivity extends AppCompatActivity implements PostsFragment.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    IabHelper.QueryInventoryFinishedListener
+            mQueryFinishedListener = new IabHelper.QueryInventoryFinishedListener() {
+        public void onQueryInventoryFinished(IabResult result, Inventory inventory)
+        {
+            if (result.isFailure()) {
+                // handle error
+                return;
+            }
+
+            String applePrice =
+                    inventory.getSkuDetails("SKU_APPLE").getPrice();
+            String bananaPrice =
+                    inventory.getSkuDetails("SKU_BANANA").getPrice();
+
+            // update the UI
+        }
+    };
+
+    IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener
+            = new IabHelper.OnIabPurchaseFinishedListener() {
+        public void onIabPurchaseFinished(IabResult result, Purchase purchase)
+        {
+            if (result.isFailure()) {
+                Log.d(TAG, "Error purchasing: " + result);
+                return;
+            }
+            else if (purchase.getSku().equals("SKUGAS")) {
+                // consume the gas and update the UI
+            }
+            else if (purchase.getSku().equals("DKK")) {
+                // give user access to premium content and update the UI
+            }
+        }
+    };
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mHelper != null) try {
+            mHelper.dispose();
+        } catch (IabHelper.IabAsyncInProgressException e) {
+            e.printStackTrace();
+        }
+        mHelper = null;
     }
 }

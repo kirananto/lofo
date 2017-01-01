@@ -257,7 +257,9 @@ public class ProfileActivity extends BaseActivity implements
             Global.Category = "Vehicles";
         }if (id == R.id.nav_people) {
             Global.Category = "People";
-        } else if (id == R.id.nav_share) {
+        } if (id == R.id.nav_signout) {
+            signout();
+        }else if (id == R.id.nav_share) {
             Intent sharingIntent = new Intent(Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
             sharingIntent.putExtra(Intent.EXTRA_TEXT, "SHARE");

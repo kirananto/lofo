@@ -104,15 +104,6 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@id/separator"
                     android:layout_below="@id/user_num_followers"/>
-                <TextView
-                    android:id="@+id/user_num_likes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/UserStatsTextStyle"
-                    android:layout_alignParentBottom="true"
-                    android:text="0 likes"
-                    android:layout_toRightOf="@id/separator"
-                    android:layout_below="@id/user_num_following"/>
             </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"

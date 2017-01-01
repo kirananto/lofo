@@ -18,5 +18,5 @@
 
 -libraryjars <java.home>\lib\rt.jar
 
--keep class org.apache.http.** { ; }
+#-keep class org.apache.http.** { ; }
 -dontwarn org.apache.http.*

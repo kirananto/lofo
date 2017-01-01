@@ -12,60 +12,100 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
-  -->
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+  --><RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/gradient"
-    tools:context=".NewPostActivity">
+    android:background="@drawable/repeating_texture"
+    android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/new_post_picture"
-        android:scaleType="centerCrop"
-        android:background="@drawable/ic_camera_alt_24dp"
-        android:backgroundTint="@color/blue_grey_500"
-        android:layout_marginTop="61dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-
-    <Button
-        android:layout_width="300dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_height="wrap_content"
-        android:id="@+id/new_post_submit"
-        android:text="SUBMIT"
-        android:textColor="@android:color/white"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_below="@+id/new_post_text"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="57dp" />
-
-    <Spinner
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:layout_above="@+id/new_post_submit"
-        android:layout_marginBottom="120dp"
-        android:layout_alignEnd="@+id/new_post_submit"
-        android:layout_alignStart="@+id/new_post_text" />
-
-    <EditText
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:id="@+id/new_post_text"
-        android:hint="Describe your post"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_below="@+id/new_post_picture"
-        android:layout_marginTop="162dp"
-        android:layout_alignEnd="@+id/new_post_submit"
-        android:layout_alignStart="@+id/new_post_submit" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".NewPostActivity">
 
+        <Button
+            android:layout_width="300dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:id="@+id/new_post_submit"
+            android:text="SUBMIT"
+            android:layout_marginBottom="30dp"
+            android:textColor="@android:color/white"
+            android:layout_below="@+id/new_post_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="57dp" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/new_post_picture"
+            android:scaleType="centerCrop"
+            android:background="@drawable/ic_camera_alt_24dp"
+            android:backgroundTint="@color/blue_grey_500"
+            android:layout_marginTop="149dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/new_post_picture"
+            android:layout_alignStart="@+id/new_post_submit"
+            android:layout_alignEnd="@+id/new_post_submit" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/new_post_text"
+            android:hint="Describe your post"
+            android:layout_marginTop="50dp"
+            android:layout_below="@+id/spinner"
+            android:layout_alignStart="@+id/spinner"
+            android:layout_alignEnd="@+id/spinner" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinner"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_marginTop="16dp"
+            android:layout_alignStart="@+id/new_post_text"
+            android:layout_alignEnd="@+id/new_post_text">
+
+            <RadioButton
+                android:text="Missing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="34dp"
+                android:id="@+id/radio_missing"
+                android:onClick="onRadioButtonClicked"
+                android:layout_weight="0.14" />
+
+            <RadioButton
+                android:text="Found"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="34dp"
+                android:layout_weight="0.14"
+                android:id="@+id/radio_found"
+                android:onClick="onRadioButtonClicked" />
+        </RadioGroup>
+
+    </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 </RelativeLayout>

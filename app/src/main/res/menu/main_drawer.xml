@@ -9,7 +9,9 @@
         android:id="@+id/nav_mail"
         android:title=" Send Mail"/>
 
-    <item android:title="Donate"/>
+    <item
+        android:id="@+id/nav_donate"
+        android:title="Donate"/>
 
     <item android:title="Categories"
         android:icon="@android:drawable/ic_search_category_default">
@@ -54,6 +56,8 @@
                 android:title="Send" />
         </menu>
     </item>
-    <item android:title="Sign Out"/>
+    <item
+        android:id="@+id/nav_signout"
+        android:title="Sign Out"/>
 
 </menu>

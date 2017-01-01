@@ -37,6 +37,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -234,6 +235,22 @@ public class NewPostActivity extends BaseActivity implements
         super.onDestroy();
     }
 
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.radio_found:
+                if (checked)
+                    // code for found
+                    break;
+            case R.id.radio_missing:
+                if (checked)
+                    // Ninjas rule
+                    break;
+        }
+    }
     @Override
     public void onBitmapResized(Bitmap resizedBitmap, int mMaxDimension) {
         if (resizedBitmap == null) {

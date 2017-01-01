@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -94,6 +95,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View view) {
                 showUserDetail(authorId);
+                //Log.e("LOG USER",authorId);
             }
         });
     }

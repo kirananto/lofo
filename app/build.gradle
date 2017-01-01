@@ -24,13 +24,13 @@ android {
         applicationId "com.razor.lofo"
         minSdkVersion 17
         targetSdkVersion 24
-        versionCode 3
-        versionName "20160401.02"
+        versionCode 1
+        versionName "20170101.02"
     }
     buildTypes {
         release {
             minifyEnabled true
-            shrinkResources true
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -56,18 +56,20 @@ dependencies {
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:percent:24.2.1'
-    compile 'com.google.android.gms:play-services-auth:9.6.1'
-    compile 'com.google.android.gms:play-services-location:9.6.1'
-    compile 'com.google.firebase:firebase-storage:9.6.1'
-    compile 'com.google.firebase:firebase-common:9.6.1'
-    compile 'com.google.firebase:firebase-auth:9.6.1'
-    compile 'com.google.firebase:firebase-database:9.6.1'
-    compile 'com.google.firebase:firebase-crash:9.6.1'
+    compile 'com.google.android.gms:play-services-auth:10.0.1'
+    compile 'com.google.android.gms:play-services-location:10.0.1'
+    compile 'com.google.firebase:firebase-storage:10.0.1'
+    compile 'com.google.firebase:firebase-common:10.0.1'
+    compile 'com.google.firebase:firebase-auth:10.0.1'
+    compile 'com.google.firebase:firebase-database:10.0.1'
+    compile 'com.google.firebase:firebase-crash:10.0.1'
     compile 'pub.devrel:easypermissions:0.1.5'
     compile 'com.github.bumptech.glide:glide:3.6.0'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'org.apache.httpcomponents:httpcore:4.3.1'
     compile 'org.apache.httpcomponents:httpmime:4.3.1'
+    compile 'com.google.firebase:firebase-core:10.0.1'
+    compile 'com.google.firebase:firebase-messaging:10.0.1'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
     compile 'com.facebook.android:facebook-android-sdk:4.16.0'
 }

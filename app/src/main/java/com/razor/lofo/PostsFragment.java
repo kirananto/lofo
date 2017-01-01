@@ -162,6 +162,7 @@ public class PostsFragment extends Fragment {
         }
 
         Author author = post.getAuthor();
+        //Log.e("LOG_AUTHOR",post.getAuthor().getFull_name());
         postViewHolder.setAuthor(author.getFull_name(), author.getUid());
         postViewHolder.setIcon(author.getProfile_picture(), author.getUid());
 

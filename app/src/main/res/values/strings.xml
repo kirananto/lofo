@@ -51,6 +51,7 @@
         </string-array>
     <string name="motto"> The Easiest way to find your stuffs </string>
     <string name="skip">skip sign in</string>
+    <string name="app_welcome_name">Welcome to LoFo</string>
     <string name="sign_in_button_text">sign in</string>
     <string name="sign_out_button_text">sign out</string>
     <string name="missing">Check Missing </string>
