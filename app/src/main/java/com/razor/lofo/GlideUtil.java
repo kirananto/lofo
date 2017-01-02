@@ -17,10 +17,16 @@
 package com.razor.lofo;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 
 class GlideUtil {
     public static void loadImage(String url, ImageView imageView) {
@@ -43,4 +49,21 @@ class GlideUtil {
                 .fitCenter()
                 .into(imageView);
     }
+    public static void loadProfileIcon(final Context context, String url, final MenuItem menu) {
+                Glide.with(context)
+                             .load(url)
+                             .asBitmap()
+                             .placeholder(R.drawable.ic_person_outline_black_24dp)
+                             .dontAnimate()
+                             .fitCenter()
+                             .into(new SimpleTarget<Bitmap>(100,100) {
+                             @Override
+                             public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
+                                     RoundedBitmapDrawable circularBitmapDrawable =
+                                                    RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                                     circularBitmapDrawable.setCircular(true);
+                                     menu.setIcon(circularBitmapDrawable);
+                                 }
+                          });
+            }
 }

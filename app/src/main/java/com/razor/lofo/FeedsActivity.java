@@ -62,6 +62,7 @@ import java.util.List;
 public class FeedsActivity extends ProfileActivity implements PostsFragment.OnPostSelectedListener,NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "FeedsActivity";
     private IabHelper mHelper;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +95,7 @@ public class FeedsActivity extends ProfileActivity implements PostsFragment.OnPo
         TabLayout tabLayout = (TabLayout) findViewById(R.id.feeds_tab_layout);
         tabLayout.setupWithViewPager(viewPager);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -157,12 +158,7 @@ public class FeedsActivity extends ProfileActivity implements PostsFragment.OnPo
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_feeds, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -212,6 +208,16 @@ public class FeedsActivity extends ProfileActivity implements PostsFragment.OnPo
         }
 
 
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_feeds, menu);
+
+        final MenuItem accountProfileItem = menu.findItem(R.id.action_profile);
+        GlideUtil.loadProfileIcon(this, user.getPhotoUrl().toString(), accountProfileItem);
+        return true;
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
