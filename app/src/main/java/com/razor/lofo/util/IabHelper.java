@@ -398,8 +398,8 @@ public class IabHelper {
         launchPurchaseFlow(act, sku, ITEM_TYPE_INAPP, requestCode, listener, extraData);
     }
 
-    public void launchSubscriptionPurchaseFlow(Activity act, String sku, int requestCode,
-            OnIabPurchaseFinishedListener listener) throws IabAsyncInProgressException {
+    private void launchSubscriptionPurchaseFlow(Activity act, String sku, int requestCode,
+                                                OnIabPurchaseFinishedListener listener) throws IabAsyncInProgressException {
         launchSubscriptionPurchaseFlow(act, sku, requestCode, listener);
     }
 
@@ -434,7 +434,7 @@ public class IabHelper {
         flagStartAsync("launchPurchaseFlow");
         IabResult result;
 
-        if (itemType.equals(ITEM_TYPE_SUBS) && !mSubscriptionsSupported) {
+        if (IabHelper.ITEM_TYPE_INAPP.equals(ITEM_TYPE_SUBS) && !mSubscriptionsSupported) {
             IabResult r = new IabResult(IABHELPER_SUBSCRIPTIONS_NOT_AVAILABLE,
                     "Subscriptions are not available.");
             flagEndAsync();
@@ -443,10 +443,10 @@ public class IabHelper {
         }
 
         try {
-            logDebug("Constructing buy intent for " + sku + ", item type: " + itemType);
+            logDebug("Constructing buy intent for " + sku + ", item type: " + IabHelper.ITEM_TYPE_INAPP);
             Bundle buyIntentBundle;
             // Purchasing a new item or subscription re-signup
-            buyIntentBundle = mService.getBuyIntent(3, mContext.getPackageName(), sku, itemType,
+            buyIntentBundle = mService.getBuyIntent(3, mContext.getPackageName(), sku, IabHelper.ITEM_TYPE_INAPP,
                     extraData);
             int response = getResponseCodeFromBundle(buyIntentBundle);
             if (response != BILLING_RESPONSE_RESULT_OK) {
@@ -461,7 +461,7 @@ public class IabHelper {
             logDebug("Launching buy intent for " + sku + ". Request code: " + requestCode);
             mRequestCode = requestCode;
             mPurchaseListener = listener;
-            mPurchasingItemType = itemType;
+            mPurchasingItemType = IabHelper.ITEM_TYPE_INAPP;
             assert pendingIntent != null;
             act.startIntentSenderForResult(pendingIntent.getIntentSender(),
                     requestCode, new Intent(),

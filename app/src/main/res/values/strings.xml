@@ -40,8 +40,8 @@
     <string name="app_welcome_name">Welcome to LoFo</string>
     <string name="sign_in_button_text">sign in</string>
     <string name="sign_out_button_text">sign out</string>
-    <string name="missing">Check Missing </string>
-    <string name="add_found"> Add Found Items </string>
+    <string name="missing">Check Feeds </string>
+    <string name="add_found"> Report Missing or Found</string>
     <string name="title_activity_comments">CommentsActivity</string>
     <string name="title_activity_new_post">New Post</string>
     <string name="title_activity_user_detail">UserDetailActivity</string>

@@ -100,6 +100,7 @@ public class ProfileActivity extends BaseActivity implements
         mProfileUsername = (TextView) findViewById(R.id.profile_user_name);
         findViewById(R.id.show_feeds_button).setOnClickListener(this);
         findViewById(R.id.sign_out_button).setOnClickListener(this);
+        findViewById(R.id.add_found).setOnClickListener(this);
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -132,10 +133,22 @@ public class ProfileActivity extends BaseActivity implements
         switch(id) {
             case R.id.sign_out_button:
                 signout();
+                finish();
                 break;
             case R.id.show_feeds_button:
                 Intent feedsIntent = new Intent(this, FeedsActivity.class);
+                feedsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(feedsIntent);
+                finish();
+                break;
+            case R.id.add_found:
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user == null || user.isAnonymous()) {
+                    Toast.makeText(ProfileActivity.this, "You must sign-in to post.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent newPostIntent = new Intent(ProfileActivity.this, NewPostActivity.class);
+                startActivity(newPostIntent);
                 break;
         }
     }

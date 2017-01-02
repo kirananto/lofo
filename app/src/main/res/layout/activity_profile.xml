@@ -96,6 +96,7 @@
                 android:background="@drawable/repeating_texture2"/>
             <Button
                 android:layout_width="200dp"
+                android:id="@+id/add_found"
                 android:layout_height="50dp"
                 android:bottomRightRadius="10dp"
                 android:bottomLeftRadius="10dp"
