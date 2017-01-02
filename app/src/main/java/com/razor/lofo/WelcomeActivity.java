@@ -94,7 +94,7 @@ public class WelcomeActivity extends ProfileActivity implements
         });
 
         findViewById(R.id.sign_in_button).setOnClickListener(this);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+       // getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
         mAuth = FirebaseAuth.getInstance();
         /*FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override

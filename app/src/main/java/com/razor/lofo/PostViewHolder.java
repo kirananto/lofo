@@ -108,7 +108,6 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     public void setText(final String text) {
         if (text == null || text.isEmpty()) {
             mPostTextView.setVisibility(View.GONE);
-            return;
         } else {
             mPostTextView.setVisibility(View.VISIBLE);
             mPostTextView.setText(text);

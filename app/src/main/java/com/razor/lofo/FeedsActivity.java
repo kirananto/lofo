@@ -300,7 +300,6 @@ public class FeedsActivity extends ProfileActivity implements PostsFragment.OnPo
         {
             if (result.isFailure()) {
                 Log.d(TAG, "Error purchasing: " + result);
-                return;
             }
             else if (purchase.getSku().equals("SKUGAS")) {
                 // consume the gas and update the UI
