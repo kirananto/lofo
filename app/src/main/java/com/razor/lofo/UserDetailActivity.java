@@ -81,6 +81,13 @@ public class UserDetailActivity extends AppCompatActivity {
 
         final FloatingActionButton followUserFab = (FloatingActionButton) findViewById(R.id
                 .follow_user_fab);
+
+
+               if (currentUserId != null && mUserId.equals(currentUserId)) {
+                    followUserFab.setVisibility(View.GONE);
+                }
+
+
         mFollowingListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -110,6 +117,11 @@ public class UserDetailActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (mUserId.equals(currentUserId)) {
+                                        Toast.makeText(UserDetailActivity.this, "You can't follow your self.",
+                                                      Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
                 // TODO: Convert these to actually not be single value, for live updating when
                 // current user follows.
                 mPeopleRef.child(currentUserId).child("following").child(mUserId).addListenerForSingleValueEvent(new ValueEventListener() {
