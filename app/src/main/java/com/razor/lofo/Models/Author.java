@@ -23,11 +23,9 @@ public class Author {
 
     private String uid;
 
-// --Commented out by Inspection START (1/1/2017 8:59 PM):
-//    public Author() {
-//
-//    }
-// --Commented out by Inspection STOP (1/1/2017 8:59 PM)
+    public Author() {
+
+    }
 
     public Author(String full_name, String profile_picture, String uid) {
         this.full_name = full_name;

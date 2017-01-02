@@ -178,7 +178,7 @@ public class UserDetailActivity extends AppCompatActivity {
                         Post post = dataSnapshot.getValue(Post.class);
                         ImageView imageView = (ImageView) findViewById(R.id.backdrop);
                         //TODO replace this temporary if condition
-                        if(post!=null)
+                        assert post != null;
                             GlideUtil.loadImage(post.getFull_url(), imageView);
                     }
 

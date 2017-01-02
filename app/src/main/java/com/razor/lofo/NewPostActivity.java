@@ -211,17 +211,9 @@ public class NewPostActivity extends BaseActivity implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == TC_PICK_IMAGE) {
-            if (resultCode == Activity.RESULT_OK) {
-                final boolean isCamera;
-                if (data.getData() == null) {
-                    isCamera = true;
-                } else {
-                    isCamera = MediaStore.ACTION_IMAGE_CAPTURE.equals(data.getAction());
-                }
-                if (!isCamera) {
-                    mFileUri = data.getData();
-                }
+        if (requestCode == TC_PICK_IMAGE && resultCode == Activity.RESULT_OK) {
+            if (data != null && !MediaStore.ACTION_IMAGE_CAPTURE.equals(data.getAction())) {
+                             mFileUri = data.getData();
                 Log.d(TAG, "Received file uri: " + mFileUri.getPath());
 
                 mTaskFragment.resizeBitmap(mFileUri, THUMBNAIL_MAX_DIMENSION);
