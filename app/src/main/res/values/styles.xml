@@ -28,8 +28,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.Welcome" parent="AppTheme.NoActionBar"
-        android:background="@drawable/repeating_texture">
+    <style name="AppTheme.Welcome" parent="AppTheme.NoActionBar">
+
+    <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
 
 
     </style>

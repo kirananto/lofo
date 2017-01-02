@@ -96,7 +96,7 @@ public class WelcomeActivity extends ProfileActivity implements
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
         mAuth = FirebaseAuth.getInstance();
-        FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
+        /*FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -112,7 +112,7 @@ public class WelcomeActivity extends ProfileActivity implements
                 // ...
                 updateUI(user);
             }
-        };
+        };*/
         if (FirebaseUtil.getCurrentUserId() != null) {
             Log.e("ERRORRRRR ", " MOVING TO PROFILE ACTIVITY");
             updateUI(FirebaseAuth.getInstance().getCurrentUser());

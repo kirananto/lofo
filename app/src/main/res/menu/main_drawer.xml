@@ -1,41 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Home" />
+    <item android:title="Home"
+        android:icon="@drawable/ic_home_black_24dp"/>
 
     <item
         android:id="@+id/nav_mail"
-        android:title=" Send Mail"/>
+        android:title=" Send Mail"
+        android:icon="@drawable/ic_email_black_24dp"/>
 
     <item
         android:id="@+id/nav_donate"
-        android:title="Donate"/>
+        android:title="Donate"
+        android:icon="@drawable/ic_attach_money_48px"/>
 
     <item android:title="Categories"
         android:icon="@android:drawable/ic_search_category_default">
         <menu>
-            <item android:title="General" />
+            <item
+                android:id="@+id/nav_general"
+                android:title="General"
+                android:icon="@drawable/ic_general_white"/>
             <item
                 android:id="@+id/nav_people"
+                android:icon="@drawable/ic_person_outline_black_24dp"
                 android:title="People" />
 
             <item
                 android:id="@+id/nav_vehicles"
+                android:icon = "@drawable/ic_directions_car_white_24dp"
                 android:title="Vehicles" />
             <item
                 android:id="@+id/nav_ornaments"
-                android:title="Ornaments" />
+                android:title="Ornaments"
+                android:icon="@drawable/ornament_icon"/>
 
             <item
                 android:id="@+id/nav_electronics"
-                android:title="Electronics" />
+                android:title="Electronics"
+                android:icon="@drawable/ic_laptop_mac_white_24dp"/>
             <item
                 android:id="@+id/nav_goods"
-                android:title="Goods" />
+                android:title="Goods"
+                android:icon="@drawable/ic_local_shipping_black_24dp"/>
 
             <item
                 android:id="@+id/nav_other"
-                android:title="Other" />
+                android:title="Other"
+                android:icon="@drawable/ic_apps_black_24dp"/>
         </menu>
     </item>
 
@@ -54,6 +66,7 @@
     </item>
     <item
         android:id="@+id/nav_signout"
-        android:title="Sign Out"/>
-
+        android:icon="@drawable/sign_out"
+        android:title="Sign Out">
+    </item>
 </menu>
