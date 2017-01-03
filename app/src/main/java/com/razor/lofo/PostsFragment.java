@@ -52,7 +52,6 @@ public class PostsFragment extends Fragment {
     public static final int TYPE_FOUND = 1002;
     private NativeExpressAdView adView;
     private CardView ads_card ;
-    private TextView text_ads;
     private int mRecyclerViewPosition = 0;
     private OnPostSelectedListener mListener;
 
@@ -88,7 +87,6 @@ public class PostsFragment extends Fragment {
         rootView.setTag(TAG);
         adView = (NativeExpressAdView)rootView.findViewById(R.id.adView);
        ads_card = (CardView)rootView.findViewById(R.id.ads_card);
-        text_ads = (TextView)rootView.findViewById(R.id.loading_text);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
         return rootView;
     }

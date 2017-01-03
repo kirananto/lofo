@@ -4,7 +4,7 @@ package com.razor.lofo;
  * Created by kiran on 12/28/2016.
  */
 
-public class Global {
+class Global {
     private static String Category = "General";
 
     public Global()
