@@ -42,6 +42,7 @@
     <string name="sign_out_button_text">sign out</string>
     <string name="missing">Check Feeds </string>
     <string name="add_found"> Report Missing or Found</string>
+    <string name="banner_ad_unit_id">ca-app-pub-5605337449605410/7146331828</string>
     <string name="title_activity_comments">CommentsActivity</string>
     <string name="title_activity_new_post">New Post</string>
     <string name="title_activity_user_detail">UserDetailActivity</string>

@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.razor.lofo.Models.Author;
 
 class FirebaseUtil {
@@ -53,8 +54,11 @@ class FirebaseUtil {
         return getBaseRef().child("posts");
     }
 
-    public static DatabaseReference getPostMissingRef() {
-        return getBaseRef().child("posts");
+    public static Query getPostMissingRef() {
+        return getBaseRef().child("posts").orderByChild("lf").equalTo("Missing");
+    }
+    public static Query getPostFoundRef() {
+        return getBaseRef().child("posts").orderByChild("lf").equalTo("Found");
     }
 
     public static String getPostsPath() {

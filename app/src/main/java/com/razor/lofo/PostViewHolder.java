@@ -19,10 +19,14 @@ package com.razor.lofo;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.NativeExpressAdView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
@@ -31,28 +35,21 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     private PostClickListener mListener;
     public DatabaseReference mPostRef;
     public ValueEventListener mPostListener;
-
-    public enum LikeStatus { LIKED, NOT_LIKED }
-    //private final ImageView mLikeIcon;
     private static final int POST_TEXT_MAX_LINES = 6;
     private final ImageView mPhotoView;
     private final ImageView mIconView;
     private final TextView mAuthorView;
     private final TextView mPostTextView;
     private final TextView mTimestampView;
-    private TextView mNumLikesView;
-    public String mPostKey;
-    public ValueEventListener mLikeListener;
 
     public PostViewHolder(View itemView) {
         super(itemView);
         mView = itemView;
-        mPhotoView = (ImageView) itemView.findViewById(R.id.post_photo);
+        mPhotoView = (ImageView) mView.findViewById(R.id.post_photo);
         mIconView = (ImageView) mView.findViewById(R.id.post_author_icon);
         mAuthorView = (TextView) mView.findViewById(R.id.post_author_name);
-        mPostTextView = (TextView) itemView.findViewById(R.id.post_text);
-        mTimestampView = (TextView) itemView.findViewById(R.id.post_timestamp);
-       // mNumLikesView = (TextView) itemView.findViewById(R.id.post_num_likes);
+        mPostTextView = (TextView) mView.findViewById(R.id.post_text);
+        mTimestampView = (TextView) mView.findViewById(R.id.post_timestamp);
 
         itemView.findViewById(R.id.post_comment_icon).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,13 +57,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
                 mListener.showComments();
             }
         });
-       // mLikeIcon = (ImageView) itemView.findViewById(R.id.post_like_icon);
-        /*mLikeIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.toggleLike();
-            }
-        });*/
+
     }
 
     public void setPhoto(String url) {
@@ -130,10 +121,6 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         mTimestampView.setText(timestamp);
     }
 
-    public void setNumLikes(long numLikes) {
-        String suffix = numLikes == 1 ? " like" : " likes";
-        mNumLikesView.setText(numLikes + suffix);
-    }
 
     public void setPostClickListener(PostClickListener listener) {
         mListener = listener;

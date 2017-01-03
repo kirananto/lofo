@@ -95,7 +95,7 @@ public class PostsFragment extends Fragment {
         switch (getArguments().getInt(KEY_TYPE)) {
             case TYPE_FOUND:
                 Log.d(TAG, "Restoring recycler view position (all): " + mRecyclerViewPosition);
-                Query foundPostQuery = FirebaseUtil.getPostsRef();
+                Query foundPostQuery = FirebaseUtil.getPostFoundRef();
                 mAdapter = getFirebaseRecyclerAdapter(foundPostQuery);
                 mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
                     @Override
@@ -107,7 +107,7 @@ public class PostsFragment extends Fragment {
                 break;
             case TYPE_MISSING:
                 Log.d(TAG, "Restoring recycler view position (all): " + mRecyclerViewPosition);
-                Query missingPostQuery = FirebaseUtil.getPostsRef();
+                Query missingPostQuery = FirebaseUtil.getPostMissingRef();
                 mAdapter = getFirebaseRecyclerAdapter(missingPostQuery);
                 mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
                     @Override

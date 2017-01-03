@@ -23,6 +23,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.NativeExpressAdView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +37,8 @@ import java.util.List;
 
 class FirebasePostQueryAdapter extends RecyclerView.Adapter<PostViewHolder> {
     private final String TAG = "PostQueryAdapter";
+    private final int AD_TYPE = 1;
+    private final int CONTENT_TYPE = 0;
     private List<String> mPostPaths;
     private final OnSetupViewListener mOnSetupViewListener;
 
@@ -47,12 +52,36 @@ class FirebasePostQueryAdapter extends RecyclerView.Adapter<PostViewHolder> {
     }
 
     @Override
+    public int getItemViewType(int position)
+    {
+        if (position % 7 == 0)
+            return AD_TYPE;
+        return CONTENT_TYPE;
+    }
+
+    @Override
     public PostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.post_item, parent, false);
-        return new PostViewHolder(v);
+        View v;
+        switch (viewType) {
+            case CONTENT_TYPE: {
+                v = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.post_item, parent, false);
+                return new PostViewHolder(v);
+            }
+            case AD_TYPE: {
+                v = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.post_ads, parent, false);
+                return new PostViewHolder(v);
+            }
+            default: {
+                v = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.post_item, parent, false);
+                return new PostViewHolder(v);
+            }
+        }
     }
+
 
     public void setPaths(List<String> postPaths) {
         mPostPaths = postPaths;
