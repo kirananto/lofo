@@ -230,31 +230,31 @@ public class FeedsActivity extends ProfileActivity implements PostsFragment.OnPo
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        if (id == R.id.nav_other) {
+        if (id == R.id.nav_other && Global.getCategory() != "Other") {
             Global.setCategory("Other");
             refresh();
             Log.e("NAVIGATION",Global.getCategory());
-        } if (id == R.id.nav_electronics) {
+        } if (id == R.id.nav_electronics && Global.getCategory() != "Electronics") {
             Global.setCategory("Electronics");
             refresh();
             Log.e("NAVIGATION",Global.getCategory());
-        }if (id == R.id.nav_ornaments) {
+        }if (id == R.id.nav_ornaments && Global.getCategory() != "Ornaments") {
             Global.setCategory("Ornaments");
             refresh();
             Log.e("NAVIGATION",Global.getCategory());
-        }if (id == R.id.nav_goods) {
+        }if (id == R.id.nav_goods && Global.getCategory() != "Goods") {
             Global.setCategory("Goods");
             refresh();
             Log.e("NAVIGATION",Global.getCategory());
-        }if (id == R.id.nav_vehicles) {
+        }if (id == R.id.nav_vehicles && Global.getCategory() != "Vehicles") {
             Global.setCategory("Vehicles");
             refresh();
             Log.e("NAVIGATION",Global.getCategory());
-        }if (id == R.id.nav_people) {
+        }if (id == R.id.nav_people && Global.getCategory() != "People") {
             Global.setCategory("People");
             refresh();
             Log.e("NAVIGATION",Global.getCategory());
-        } if (id == R.id.nav_general) {
+        } if (id == R.id.nav_general && Global.getCategory() != "General") {
             Global.setCategory("General");
             refresh();
             Log.e("NAVIGATION",Global.getCategory());
