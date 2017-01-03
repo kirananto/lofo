@@ -19,6 +19,7 @@ package com.razor.lofo;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
@@ -26,11 +27,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.NativeExpressAdView;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.Query;
 import com.razor.lofo.Models.Author;
 import com.razor.lofo.Models.Post;
+
+import static android.view.View.GONE;
 
 /**
  * Shows a list of posts.
@@ -42,6 +50,9 @@ public class PostsFragment extends Fragment {
     private static final String KEY_TYPE = "type";
     public static final int TYPE_MISSING = 1001;
     public static final int TYPE_FOUND = 1002;
+    private NativeExpressAdView adView;
+    private CardView ads_card ;
+    private TextView text_ads;
     private int mRecyclerViewPosition = 0;
     private OnPostSelectedListener mListener;
 
@@ -75,7 +86,9 @@ public class PostsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_posts, container, false);
         rootView.setTag(TAG);
-
+        adView = (NativeExpressAdView)rootView.findViewById(R.id.adView);
+       ads_card = (CardView)rootView.findViewById(R.id.ads_card);
+        text_ads = (TextView)rootView.findViewById(R.id.loading_text);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
         return rootView;
     }
@@ -98,6 +111,7 @@ public class PostsFragment extends Fragment {
 
         switch (getArguments().getInt(KEY_TYPE)) {
             case TYPE_FOUND:
+                load_ads();
                 Log.d(TAG, "Restoring recycler view position (all): " + mRecyclerViewPosition);
                 Query foundPostQuery = FirebaseUtil.getPostFoundRef();
                 mAdapter = getFirebaseRecyclerAdapter(foundPostQuery);
@@ -106,10 +120,14 @@ public class PostsFragment extends Fragment {
                     public void onItemRangeInserted(int positionStart, int itemCount) {
                         super.onItemRangeInserted(positionStart, itemCount);
                         // TODO: Refresh feed view.
+                        make_visible();
                     }
                 });
+                if(foundPostQuery == null)
+                    load_ads();
                 break;
             case TYPE_MISSING:
+                load_ads();
                 Log.d(TAG, "Restoring recycler view position (all): " + mRecyclerViewPosition);
                 Query missingPostQuery = FirebaseUtil.getPostMissingRef();
                 mAdapter = getFirebaseRecyclerAdapter(missingPostQuery);
@@ -118,6 +136,7 @@ public class PostsFragment extends Fragment {
                     public void onItemRangeInserted(int positionStart, int itemCount) {
                         super.onItemRangeInserted(positionStart, itemCount);
                         // TODO: Refresh feed view.
+                        make_visible();
                     }
                 });
                 break;
@@ -127,6 +146,20 @@ public class PostsFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    public void make_visible(){
+        mRecyclerView.setVisibility(View.VISIBLE);
+        ads_card.setVisibility(View.GONE);
+    }
+    public void load_ads() {
+
+        mRecyclerView.setVisibility(View.GONE);
+        ads_card.setVisibility(View.VISIBLE);
+        AdRequest request = new AdRequest.Builder()
+                .addTestDevice("YOUR_DEVICE_ID")
+                .build();
+        adView.loadAd(request);
+
+    }
     private FirebaseRecyclerAdapter<Post, PostViewHolder> getFirebaseRecyclerAdapter(Query query) {
         return new FirebaseRecyclerAdapter<Post, PostViewHolder>(
                 Post.class, R.layout.post_item, PostViewHolder.class, query) {

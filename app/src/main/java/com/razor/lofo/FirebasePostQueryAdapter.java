@@ -69,11 +69,6 @@ class FirebasePostQueryAdapter extends RecyclerView.Adapter<PostViewHolder> {
                         .inflate(R.layout.post_item, parent, false);
                 return new PostViewHolder(v);
             }
-            case AD_TYPE: {
-                v = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.post_ads, parent, false);
-                return new PostViewHolder(v);
-            }
             default: {
                 v = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.post_item, parent, false);

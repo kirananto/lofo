@@ -28,16 +28,18 @@ public class Post {
     private Object timestamp;
     private String categ;
     private String lf;
+    private String lf_categ;
     private String full_storage_uri;
 
     public Post() {
         // empty default constructor, necessary for Firebase to be able to deserialize blog posts
     }
 
-    public Post(Author author, String full_url, String full_storage_uri, String thumb_url, String thumb_storage_uri, String text, String categ, String lf) {
+    public Post(Author author, String full_url, String full_storage_uri, String thumb_url, String thumb_storage_uri, String text, String categ, String lf,String lf_categ) {
         this.author = author;
         this.full_url = full_url;
         this.text = text;
+        this.lf_categ = lf_categ;
         this.categ = categ;
         this.lf = lf;
         this.timestamp = com.google.firebase.database.ServerValue.TIMESTAMP;
@@ -60,6 +62,10 @@ public class Post {
 
     public String getCateg() {
         return categ;
+    }
+
+    public String getLf_categ() {
+        return lf_categ;
     }
 
     public String getLf() {

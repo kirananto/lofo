@@ -146,7 +146,7 @@ public class NewPostActivity extends BaseActivity implements
                 String bitmapPath = "/" + FirebaseUtil.getCurrentUserId() + "/full/" + timestamp.toString() + "/";
                 String thumbnailPath = "/" + FirebaseUtil.getCurrentUserId() + "/thumb/" + timestamp.toString() + "/";
                 mTaskFragment.uploadPost(mResizedBitmap, bitmapPath, mThumbnail, thumbnailPath, mFileUri.getLastPathSegment(),
-                        postText,category,lf);
+                        postText,category,lf,lf+"_"+category);
             }
         });
     }
