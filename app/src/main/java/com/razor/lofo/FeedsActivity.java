@@ -31,6 +31,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -39,6 +40,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -219,6 +221,11 @@ public class FeedsActivity extends ProfileActivity implements PostsFragment.OnPo
         GlideUtil.loadProfileIcon(this, user.getPhotoUrl().toString(), accountProfileItem);
         return true;
     }
+    private void refresh ()
+    {
+        startActivity(getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+        finish();
+    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -226,27 +233,41 @@ public class FeedsActivity extends ProfileActivity implements PostsFragment.OnPo
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_other) {
-            Global.Category = "Other";
-        } else if(id == R.id.nav_donate)
-        {
+            Global.setCategory("Other");
+            refresh();
+            Log.e("NAVIGATION",Global.getCategory());
+        } if (id == R.id.nav_electronics) {
+            Global.setCategory("Electronics");
+            refresh();
+            Log.e("NAVIGATION",Global.getCategory());
+        }if (id == R.id.nav_ornaments) {
+            Global.setCategory("Ornaments");
+            refresh();
+            Log.e("NAVIGATION",Global.getCategory());
+        }if (id == R.id.nav_goods) {
+            Global.setCategory("Goods");
+            refresh();
+            Log.e("NAVIGATION",Global.getCategory());
+        }if (id == R.id.nav_vehicles) {
+            Global.setCategory("Vehicles");
+            refresh();
+            Log.e("NAVIGATION",Global.getCategory());
+        }if (id == R.id.nav_people) {
+            Global.setCategory("People");
+            refresh();
+            Log.e("NAVIGATION",Global.getCategory());
+        } if (id == R.id.nav_general) {
+            Global.setCategory("General");
+            refresh();
+            Log.e("NAVIGATION",Global.getCategory());
+        } else if(id == R.id.nav_donate)     {
             try {
                 mHelper.launchPurchaseFlow(this,"SKU_GAS", 10001,
                         mPurchaseFinishedListener, "bGoa+V7g/yqDXvKRqq+JTFn4uQZbPiQJo4pf9RzJ");
             } catch (IabHelper.IabAsyncInProgressException e) {
                 e.printStackTrace();
             }
-        }
-        else if (id == R.id.nav_electronics) {
-            Global.Category = "Electronics";
-        }if (id == R.id.nav_ornaments) {
-            Global.Category = "Ornaments";
-        }if (id == R.id.nav_goods) {
-            Global.Category = "Goods";
-        }if (id == R.id.nav_vehicles) {
-            Global.Category = "Vehicles";
-        }if (id == R.id.nav_people) {
-            Global.Category = "People";
-        }if (id == R.id.nav_signout) {
+        } if (id == R.id.nav_signout) {
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             mAuth.signOut();
             LoginManager.getInstance().logOut();

@@ -16,6 +16,8 @@
 
 package com.razor.lofo;
 
+import android.util.Log;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -55,10 +57,18 @@ class FirebaseUtil {
     }
 
     public static Query getPostMissingRef() {
-        return getBaseRef().child("posts").orderByChild("lf").equalTo("Missing");
+        Log.e("CATEGORY",Global.getCategory());
+        if(Global.getCategory() != "General")
+        return getBaseRef().child("posts").orderByChild("lf").equalTo("Missing").getRef().orderByChild("categ").equalTo(Global.getCategory());
+        else
+            return getBaseRef().child("posts").orderByChild("lf").equalTo("Missing");
+
     }
     public static Query getPostFoundRef() {
-        return getBaseRef().child("posts").orderByChild("lf").equalTo("Found");
+        if(Global.getCategory() != "General")
+        return getBaseRef().child("posts").orderByChild("lf").equalTo("Found").getRef().orderByChild("categ").equalTo(Global.getCategory());
+        else
+            return getBaseRef().child("posts").orderByChild("lf").equalTo("Found");
     }
 
     public static String getPostsPath() {

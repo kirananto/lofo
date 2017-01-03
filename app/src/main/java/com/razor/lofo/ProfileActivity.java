@@ -236,6 +236,13 @@ public class ProfileActivity extends BaseActivity implements
         Log.w(TAG, "onConnectionFailed:" + connectionResult);
     }
 
+
+    private void refresh ()
+    {
+        startActivity(getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+        finish();
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -243,18 +250,34 @@ public class ProfileActivity extends BaseActivity implements
         int id = item.getItemId();
 
         if (id == R.id.nav_other) {
-            Global.Category = "Other";
+            Global.setCategory("Other");
+            refresh();
+            Log.e("NAVIGATION",Global.getCategory());
         } if (id == R.id.nav_electronics) {
-            Global.Category = "Electronics";
+            Global.setCategory("Electronics");
+            refresh();
+            Log.e("NAVIGATION",Global.getCategory());
         }if (id == R.id.nav_ornaments) {
-            Global.Category = "Ornaments";
+            Global.setCategory("Ornaments");
+            refresh();
+            Log.e("NAVIGATION",Global.getCategory());
         }if (id == R.id.nav_goods) {
-            Global.Category = "Goods";
+            Global.setCategory("Goods");
+            refresh();
+            Log.e("NAVIGATION",Global.getCategory());
         }if (id == R.id.nav_vehicles) {
-            Global.Category = "Vehicles";
+            Global.setCategory("Vehicles");
+            refresh();
+            Log.e("NAVIGATION",Global.getCategory());
         }if (id == R.id.nav_people) {
-            Global.Category = "People";
-        } if (id == R.id.nav_signout) {
+            Global.setCategory("People");
+            refresh();
+            Log.e("NAVIGATION",Global.getCategory());
+        }if (id == R.id.nav_general) {
+            Global.setCategory("General");
+            refresh();
+            Log.e("NAVIGATION",Global.getCategory());
+        }  if (id == R.id.nav_signout) {
             signout();
         }else if (id == R.id.nav_share) {
             Intent sharingIntent = new Intent(Intent.ACTION_SEND);

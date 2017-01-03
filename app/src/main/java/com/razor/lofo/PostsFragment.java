@@ -61,6 +61,10 @@ public class PostsFragment extends Fragment {
         return fragment;
     }
 
+    public void refresh() {
+        mAdapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
