@@ -292,7 +292,7 @@ public class ProfileActivity extends BaseActivity implements
         } else if (id == R.id.nav_mail) {
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                     "mailto","KIRAN ANTO", null));
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "REGARDING CONTENT OF CSE BETA App");
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Regarding Lofo");
             startActivity(Intent.createChooser(emailIntent, "Send email..."));
         }
 
