@@ -58,16 +58,18 @@ class FirebaseUtil {
 
     public static Query getPostMissingRef() {
         Log.e("CATEGORY",Global.getCategory());
-        if(Global.getCategory() != "General")
-        return getBaseRef().child("posts").orderByChild("lf").equalTo("Missing").getRef().orderByChild("categ").equalTo(Global.getCategory());
-        else
+        if(Global.getCategory() != "General") {
+            //TODO    Fix this.. here the first condition is not validated
+            return getBaseRef().child("posts").orderByChild("lf").equalTo("Missing").getRef().orderByChild("categ").equalTo(Global.getCategory());
+        } else
             return getBaseRef().child("posts").orderByChild("lf").equalTo("Missing");
 
     }
     public static Query getPostFoundRef() {
-        if(Global.getCategory() != "General")
-        return getBaseRef().child("posts").orderByChild("lf").equalTo("Found").getRef().orderByChild("categ").equalTo(Global.getCategory());
-        else
+        if(Global.getCategory() != "General") {
+            //TODO    Fix this.. here the first condition is not validated
+            return getBaseRef().child("posts").orderByChild("lf").equalTo("Found").getRef().orderByChild("categ").equalTo(Global.getCategory());
+        } else
             return getBaseRef().child("posts").orderByChild("lf").equalTo("Found");
     }
 
