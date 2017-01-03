@@ -32,13 +32,9 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.NativeExpressAdView;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.Query;
 import com.razor.lofo.Models.Author;
 import com.razor.lofo.Models.Post;
-
-import static android.view.View.GONE;
 
 /**
  * Shows a list of posts.
@@ -144,11 +140,11 @@ public class PostsFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    public void make_visible(){
+    private void make_visible(){
         mRecyclerView.setVisibility(View.VISIBLE);
         ads_card.setVisibility(View.GONE);
     }
-    public void load_ads() {
+    private void load_ads() {
 
         mRecyclerView.setVisibility(View.GONE);
         ads_card.setVisibility(View.VISIBLE);
