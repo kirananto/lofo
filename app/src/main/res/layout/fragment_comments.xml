@@ -25,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:background="@drawable/repeating_texture"
         android:id="@+id/comment_list"
         android:divider="@android:color/transparent"
         android:dividerHeight="12sp">
